@@ -1,0 +1,19 @@
+#!/bin/sh
+
+base_dir=$( cd $(dirname $0) && pwd )
+source $base_dir/common.sh
+
+if [ $# -lt 2 ]; then
+  echo "usage: $0 <target_dir> package {package ...}"
+  exit 21
+fi
+
+target="$1"
+build="$target/build"
+shift;
+
+mkdir -p "$target" "$build"
+
+for p in $@; do
+  run_scripts download_unpack pre_build build_install
+done
