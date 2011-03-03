@@ -18,5 +18,13 @@ mkdir -p "$target" "$build"
 
 for p in $@; do
   target="$root/$p"
+  if [ -d "$target" ] ; then
+    [ $skip = "y" ] && {
+      echo "skipping $p"
+      continue
+    }
+    [ $delete = "y" ] && rm -r "$target" ||
+    error "directory for $p already exists"
+  fi
   run_scripts download_unpack pre_build build_install
 done

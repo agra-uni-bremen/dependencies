@@ -1,3 +1,11 @@
+skip=${skip:-y}
+delete=${delete:-n}
+
+error() {
+  echo "ERROR: $@" >&2
+  echo "TERMINATING" >&2
+  exit 1
+}
 
 run_scripts() {
   cd $base_dir
