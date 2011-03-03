@@ -34,6 +34,10 @@ pre_build() {
 }
 
 build_install() {
+  if [ -z "$target" ] ; then 
+    echo '$target is undefined'
+    exit 1
+  fi
   cd $build_dir &&
   mkdir -p build &&
   cd build &&
