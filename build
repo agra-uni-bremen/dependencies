@@ -8,12 +8,15 @@ if [ $# -lt 2 ]; then
   exit 21
 fi
 
-target="$1"
-build="$target/build"
+root="$(cd $1 && pwd)"
+
+target="$root"
+build="$root/build"
 shift;
 
 mkdir -p "$target" "$build"
 
 for p in $@; do
+  target="$root/$p"
   run_scripts download_unpack pre_build build_install
 done
