@@ -20,9 +20,17 @@ run_scripts() {
   done
 }
 
+
+#
+# install all CMakeLists.txt files from the package to the current folder.
+# includes subfolders and keeps hierarchy
+#
+# currently all files ar symlinked.
+#
 install_cmake_files() {
   find $package_dir -name CMakeLists.txt| while read f
   do
     ln -sf $f $(echo "$f" |sed "s@^$package_dir/*@@")
   done
 }
+
