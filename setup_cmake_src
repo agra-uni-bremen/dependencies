@@ -1,6 +1,7 @@
 #!/bin/sh
 
 base_dir=$( cd $(dirname $0) && pwd )
+source $base_dir/common.sh
 
 if [ $# -lt 2 ]; then
   echo "usage: $0 <target_dir> package {package ...}"
@@ -13,9 +14,5 @@ shift;
 mkdir -p "$build"
 
 for p in $@; do
-  cd $base_dir
-  package_dir=$base_dir/$p
-  source $p/setup.sh
-  download_unpack
-  pre_build
+  run_scripts download_unpack pre_build
 done

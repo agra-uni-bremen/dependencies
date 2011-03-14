@@ -19,12 +19,19 @@ mkdir -p "$target" "$build"
 for p in $@; do
   target="$root/$p"
   if [ -d "$target" ] ; then
-    [ $skip = "y" ] && {
-      echo "skipping $p"
+    if [ $duplicate = "skip" ]; then
+      message "skipping $p" &&
       continue
-    }
-    [ $delete = "y" ] && rm -r "$target" ||
-    error "directory for $p already exists"
+    elif [ $duplicate = "remove" ]; then
+      message "removing exists package $p" &&
+      rm -r "$target"
+    elif  [ $duplicate = "rebuild" ]; then
+        message "rebuilding exists package $p" &&
+  	run_scripts build_install
+	continue
+    else 
+      error "directory for $p already exists"
+    fi
   fi
   run_scripts download_unpack pre_build build_install
 done
