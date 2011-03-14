@@ -25,11 +25,17 @@ add_executable(PicoSAT_picosat
   app.c
   main.c
 )
+SET_TARGET_PROPERTIES( PicoSAT_picosat PROPERTIES
+  OUTPUT_NAME picosat
+)
 
 add_executable(PicoSAT_picomus
   picomus.c
   picosat.c
   version.c
+)
+SET_TARGET_PROPERTIES( PicoSAT_picomus PROPERTIES
+  OUTPUT_NAME picomus
 )
   
 
