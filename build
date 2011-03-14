@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 base_dir=$( cd $(dirname $0) && pwd )
 source $base_dir/common.sh
