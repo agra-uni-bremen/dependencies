@@ -14,7 +14,8 @@ target="$root"
 build="$root/build"
 shift;
 
-mkdir -p "$target" "$build"
+mkdir -p "$target" 
+mkdir -p "$build"
 
 for p in $@; do
   target="$root/$p"
