@@ -47,6 +47,7 @@ build_install() {
     --with-iostreams
     --with-math
     --with-program_options
+    --with-python
     --with-random
     --with-regex
     --with-serialization
