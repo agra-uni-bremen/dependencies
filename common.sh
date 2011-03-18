@@ -1,4 +1,3 @@
-duplicate=${duplicate:-skip}
 
 error() {
   echo "ERROR: $@" >&2
@@ -34,3 +33,12 @@ install_cmake_files() {
   done
 }
 
+setup_environment() {
+  ARCH=${ARCH:-$(uname -m)}
+  duplicate=${duplicate:-skip}
+}
+
+setup_environment
+
+
+# vim ts=2 sw=2 et
