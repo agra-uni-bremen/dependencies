@@ -24,10 +24,10 @@ for p in $@; do
       message "skipping $p" &&
       continue
     elif [ $duplicate = "remove" ]; then
-      message "removing exists package $p" &&
+      message "removing existing package $p" &&
       rm -r "$target"
     elif  [ $duplicate = "rebuild" ]; then
-        message "rebuilding exists package $p" &&
+        message "rebuilding existing package $p" &&
   	run_scripts build_install
 	continue
     else 
