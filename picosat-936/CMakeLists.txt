@@ -41,16 +41,16 @@ SET_TARGET_PROPERTIES( PicoSAT_picomus PROPERTIES
 
 file(WRITE ${PROJECT_BINARY_DIR}/PicoSATConfig.cmake 
 "set(PicoSAT_FOUND 1)
-set(PicoSAT_VERSION 2.4.2)
+set(PicoSAT_VERSION 936)
 get_filename_component(PicoSAT_CONFIG_DIR "\${CMAKE_CURRENT_LIST_FILE}" PATH)
 set(PicoSAT_INCLUDE_DIR \${PicoSAT_CONFIG_DIR}/../../include)
 include("\${PicoSAT_CONFIG_DIR}/PicoSAT.cmake" )
 ")
 file(WRITE ${PROJECT_BINARY_DIR}/PicoSATConfigVersion.cmake 
-"if("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 2.4.2)
+"if("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 936)
 set(PACKAGE_VERSION_EXACT 1)
 set(PACKAGE_VERSION_COMPATIBLE 1)
-endif("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 2.4.2)
+endif("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 936)
 ")
 ## create libPicoSAT config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/PicoSAT.cmake 
