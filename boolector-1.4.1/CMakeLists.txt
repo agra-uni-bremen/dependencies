@@ -86,6 +86,7 @@ install(TARGETS
 
 install(FILES
   boolector.h
+  btordefs.h
   DESTINATION include 
 )
 # vim: ts=2 sw=2 et
