@@ -14,7 +14,9 @@ file(GLOB UTILS_HDRS minisat/utils/*.h)
 include_directories(${PROJECT_SOURCE_DIR})
 message(STATUS ${PROJECT_SOURCE_DIR}})
 
-add_definitions(-D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS )
+set(MiniSat_CXXFLAGS "-D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS")
+
+add_definitions( ${MiniSat_CXXFLAGS} )
 
 add_library(MiniSat_libMiniSat  
   ${STATIC_OR_SHARED}
@@ -59,13 +61,14 @@ file(WRITE ${PROJECT_BINARY_DIR}/MiniSatConfig.cmake
 set(MiniSat_VERSION 2.2.0)
 get_filename_component(MiniSat_CONFIG_DIR "\${CMAKE_CURRENT_LIST_FILE}" PATH)
 set(MiniSat_INCLUDE_DIR \${MiniSat_CONFIG_DIR}/../../include)
+set(MiniSat_CXXFLAGS \"${MiniSat_CXXFLAGS}\")
 include("\${MiniSat_CONFIG_DIR}/MiniSat.cmake" )
 ")
 file(WRITE ${PROJECT_BINARY_DIR}/MiniSatConfigVersion.cmake 
 "if(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 2.2.0)
 set(PACKAGE_VERSION_EXACT 1)
 set(PACKAGE_VERSION_COMPATIBLE 1)
-endif("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 2.2.0)
+endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 2.2.0)
 ")
 ## create libMiniSat config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/MiniSat.cmake 
