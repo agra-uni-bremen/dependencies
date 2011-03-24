@@ -53,7 +53,7 @@ file(WRITE ${PROJECT_BINARY_DIR}/BoolectorConfigVersion.cmake
 "if("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 1.4.1)
 set(PACKAGE_VERSION_EXACT 1)
 set(PACKAGE_VERSION_COMPATIBLE 1)
-endif("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 1.4.1)
+endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 1.4.1)
 ")
 ## create libBoolector config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/Boolector.cmake 
