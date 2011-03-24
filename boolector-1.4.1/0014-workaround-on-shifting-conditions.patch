@@ -1,0 +1,74 @@
+From 05a6f581cc38d5543962520ac57679ed7f2cb3be Mon Sep 17 00:00:00 2001
+From: Finn Haedicke <finn@informatik.uni-bremen.de>
+Date: Fri, 3 Dec 2010 20:24:58 +0100
+Subject: [PATCH 14/14] workaround on shifting conditions.
+
+boolector expects the arguments to be of size 2^n and n, however
+smt-lib specifies both to be of the same arbitrary length m.
+m is extended to the next power of two (2^k) and the shift width is
+sliced to k. The result of the shift is sliced back to m.
+---
+ boolector.c |   33 +++++++++++++++++++++++++++++++++
+ 1 files changed, 33 insertions(+), 0 deletions(-)
+
+diff --git a/boolector.c b/boolector.c
+index 8bfa49a..b564d58 100644
+--- a/boolector.c
++++ b/boolector.c
+@@ -812,6 +812,17 @@ boolector_sll (Btor * btor, BtorExp * e0, BtorExp * e1)
+   BTOR_ABORT_ARRAY_BOOLECTOR (e0);
+   BTOR_ABORT_ARRAY_BOOLECTOR (e1);
+   len = BTOR_REAL_ADDR_EXP (e0)->len;
++  int len1= BTOR_REAL_ADDR_EXP (e1)->len;
++  if( !btor_is_power_of_2_util (len) 
++    || btor_log_2_util (len) != BTOR_REAL_ADDR_EXP (e1)->len ) 
++  {
++    int tolen =  btor_next_power_of_2_util(len);
++    int loglen    = btor_log_2_util(tolen);
++    return boolector_slice(btor, boolector_sll ( btor,
++       boolector_uext(btor, e0, tolen-len),
++       (len1 > loglen) ?  boolector_slice(btor, e1, loglen-1, 0): e1 ),
++       len-1, 0);
++  }
+   BTOR_ABORT_BOOLECTOR (!btor_is_power_of_2_util (len),
+                         "bit-width of 'e0' must be a power of 2");
+   BTOR_ABORT_BOOLECTOR (btor_log_2_util (len) != BTOR_REAL_ADDR_EXP (e1)->len,
+@@ -834,6 +845,17 @@ boolector_srl (Btor * btor, BtorExp * e0, BtorExp * e1)
+   BTOR_ABORT_ARRAY_BOOLECTOR (e0);
+   BTOR_ABORT_ARRAY_BOOLECTOR (e1);
+   len = BTOR_REAL_ADDR_EXP (e0)->len;
++  int len1= BTOR_REAL_ADDR_EXP (e1)->len;
++  if( !btor_is_power_of_2_util (len) 
++    || btor_log_2_util (len) != BTOR_REAL_ADDR_EXP (e1)->len ) 
++  {
++    int tolen =  btor_next_power_of_2_util(len);
++    int loglen    = btor_log_2_util(tolen);
++    return boolector_slice(btor, boolector_srl ( btor,
++       boolector_uext(btor, e0, tolen-len),
++       (len1 > loglen) ?  boolector_slice(btor, e1, loglen-1, 0): e1 ),
++       len-1, 0);
++  }
+   BTOR_ABORT_BOOLECTOR (!btor_is_power_of_2_util (len),
+                         "bit-width of 'e0' must be a power of 2");
+   BTOR_ABORT_BOOLECTOR (btor_log_2_util (len) != BTOR_REAL_ADDR_EXP (e1)->len,
+@@ -856,6 +878,17 @@ boolector_sra (Btor * btor, BtorExp * e0, BtorExp * e1)
+   BTOR_ABORT_ARRAY_BOOLECTOR (e0);
+   BTOR_ABORT_ARRAY_BOOLECTOR (e1);
+   len = BTOR_REAL_ADDR_EXP (e0)->len;
++  int len1= BTOR_REAL_ADDR_EXP (e1)->len;
++  if( !btor_is_power_of_2_util (len) 
++    || btor_log_2_util (len) != BTOR_REAL_ADDR_EXP (e1)->len ) 
++  {
++    int tolen =  btor_next_power_of_2_util(len);
++    int loglen    = btor_log_2_util(tolen);
++    return boolector_slice(btor, boolector_sra ( btor,
++       boolector_sext(btor, e0, tolen-len),
++       (len1 > loglen) ?  boolector_slice(btor, e1, loglen-1, 0): e1 ),
++       len-1, 0);
++  }
+   BTOR_ABORT_BOOLECTOR (!btor_is_power_of_2_util (len),
+                         "bit-width of 'e0' must be a power of 2");
+   BTOR_ABORT_BOOLECTOR (btor_log_2_util (len) != BTOR_REAL_ADDR_EXP (e1)->len,
+-- 
+1.7.3.4
+
