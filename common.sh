@@ -19,6 +19,18 @@ run_scripts() {
   done
 }
 
+with_deps() {
+  build="-"
+  local i
+  local dependencies
+  for i in $@; do
+    package_dir=$i
+    source $package_dir/setup.sh
+    with_deps $dependencies
+    echo $i
+  done
+}
+
 
 #
 # install all CMakeLists.txt files from the package to the current folder.
@@ -41,4 +53,4 @@ setup_environment() {
 setup_environment
 
 
-# vim ts=2 sw=2 et
+# vim: ts=2 sw=2 et

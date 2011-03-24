@@ -17,8 +17,11 @@ shift;
 mkdir -p "$target" 
 mkdir -p "$build"
 
-for p in $@; do
+packages=$( with_deps $@ )
+
+for p in $packages; do
   target="$root/$p"
+  export CMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH:$target"
   if [ -d "$target" ] ; then
     if [ $duplicate = "skip" ]; then
       message "skipping $p" &&
