@@ -18,6 +18,7 @@ add_library(PicoSAT_libpicosat
   picosat.c
   version.c
 )
+set_target_properties(PicoSAT_libpicosat PROPERTIES OUTPUT_NAME picosat)
 
 add_executable(PicoSAT_picosat
   picosat.c
@@ -47,7 +48,7 @@ set(PicoSAT_INCLUDE_DIR \${PicoSAT_CONFIG_DIR}/../../include)
 include("\${PicoSAT_CONFIG_DIR}/PicoSAT.cmake" )
 ")
 file(WRITE ${PROJECT_BINARY_DIR}/PicoSATConfigVersion.cmake 
-"if("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 936)
+"if(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 936)
 set(PACKAGE_VERSION_EXACT 1)
 set(PACKAGE_VERSION_COMPATIBLE 1)
 endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 936)
