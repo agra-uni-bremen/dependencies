@@ -5,6 +5,8 @@ cmake_minimum_required(VERSION 2.8)
 find_package( PicoSAT REQUIRED )
 #find_package( PrecoSat )
 
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 include_directories( ${PicoSAT_INCLUDE_DIR} )
 
 add_library( Boolector_libboolector
@@ -27,44 +29,26 @@ add_library( Boolector_libboolector
 set_target_properties(Boolector_libboolector PROPERTIES OUTPUT_NAME boolector)
 target_link_libraries(Boolector_libboolector PicoSAT_libpicosat)
 
-add_executable( Boolector_boolector
-  boolectormain.c
-)
+add_executable( Boolector_boolector boolectormain.c)
 target_link_libraries(Boolector_boolector Boolector_libboolector)
+set_target_properties(Boolector_boolector PROPERTIES OUTPUT_NAME boolector)
 
-add_executable( Boolector_deltabtor
-  deltabtor.c
-)
+
+add_executable( Boolector_deltabtor deltabtor.c)
 target_link_libraries(Boolector_deltabtor Boolector_libboolector)
+set_target_properties(Boolector_deltabtor PROPERTIES OUTPUT_NAME deltabtor)
 
-add_executable( Boolector_synthebtor 
-  synthebtor.c
-)
+add_executable( Boolector_synthebtor synthebtor.c)
 target_link_libraries(Boolector_synthebtor Boolector_libboolector)
+set_target_properties(Boolector_synthebtor PROPERTIES OUTPUT_NAME synthebtor)
 
-file(WRITE ${PROJECT_BINARY_DIR}/BoolectorConfig.cmake 
-"set(Boolector_FOUND 1)
-set(Boolector_VERSION 1.4.1)
-get_filename_component(Boolector_CONFIG_DIR "\${CMAKE_CURRENT_LIST_FILE}" PATH)
-set(Boolector_INCLUDE_DIR \${Boolector_CONFIG_DIR}/../../include)
-include("\${Boolector_CONFIG_DIR}/Boolector.cmake" )
-")
-file(WRITE ${PROJECT_BINARY_DIR}/BoolectorConfigVersion.cmake 
-"if("\${PACKAGE_FIND_VERSION}" VERSION_EQUAL 1.4.1)
-set(PACKAGE_VERSION_EXACT 1)
-set(PACKAGE_VERSION_COMPATIBLE 1)
-endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 1.4.1)
-")
+
+configure_file(BoolectorConfig.cmake ${PROJECT_BINARY_DIR}/BoolectorConfig.cmake @ONLY)
+configure_file(BoolectorConfigVersion.cmake ${PROJECT_BINARY_DIR}/BoolectorConfigVersion.cmake @ONLY)
 ## create libBoolector config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/Boolector.cmake 
 "set(Boolector_INCLUDE_DIR 
-  ${PROJECT_SOURCE_DIR}/cudd
-  ${PROJECT_SOURCE_DIR}/dddmp
-  ${PROJECT_SOURCE_DIR}/epd
-  ${PROJECT_SOURCE_DIR}/mtr
-  ${PROJECT_SOURCE_DIR}/obj
-  ${PROJECT_SOURCE_DIR}/st
-  ${PROJECT_SOURCE_DIR}/util
+  ${PROJECT_SOURCE_DIR}/
 )
 ")
 ## export target with install
