@@ -39,7 +39,7 @@ with_deps() {
 # currently all files ar symlinked.
 #
 install_cmake_files() {
-  find $package_dir -name CMakeLists.txt| while read f
+  find $package_dir -name CMakeLists.txt -o -name "*.cmake"| while read f
   do
     ln -sf $f $(echo "$f" |sed "s@^$package_dir/*@@")
   done
