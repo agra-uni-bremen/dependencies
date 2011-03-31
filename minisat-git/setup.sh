@@ -39,8 +39,5 @@ build_install() {
     exit 1
   fi
   cd $build_dir &&
-  mkdir -p build &&
-  cd build &&
-  cmake .. -DCMAKE_INSTALL_PREFIX=$target &&
-  make install
+  cmake_build_install
 }

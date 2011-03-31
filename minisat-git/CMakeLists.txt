@@ -1,6 +1,6 @@
 project(MiniSat)
-
 cmake_minimum_required(VERSION 2.8)
+set(MiniSat_VERSION 2.2.0)
 
 set(STATIC_OR_SHARED SHARED CACHE STRING "Build STATIC or SHARED libaries")
 
@@ -56,19 +56,12 @@ SET_TARGET_PROPERTIES( MiniSat_simp PROPERTIES
   OUTPUT_NAME minisat
 )
 
-file(WRITE ${PROJECT_BINARY_DIR}/MiniSatConfig.cmake 
-"set(MiniSat_FOUND 1)
-set(MiniSat_VERSION 2.2.0)
-get_filename_component(MiniSat_CONFIG_DIR "\${CMAKE_CURRENT_LIST_FILE}" PATH)
-set(MiniSat_INCLUDE_DIR \${MiniSat_CONFIG_DIR}/../../include)
-set(MiniSat_CXXFLAGS \"${MiniSat_CXXFLAGS}\")
-include("\${MiniSat_CONFIG_DIR}/MiniSat.cmake" )
-")
+set(MiniSat_LIBRARIES MiniSat_libMiniSat)
+
+configure_file(MiniSatConfig.cmake ${PROJECT_BINARY_DIR}/MiniSatConfig.cmake @ONLY)
+configure_file(MiniSatConfigVersion.cmake ${PROJECT_BINARY_DIR}/MiniSatConfigVersion.cmake @ONLY)
 file(WRITE ${PROJECT_BINARY_DIR}/MiniSatConfigVersion.cmake 
-"if(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 2.2.0)
-set(PACKAGE_VERSION_EXACT 1)
-set(PACKAGE_VERSION_COMPATIBLE 1)
-endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 2.2.0)
+"
 ")
 ## create libMiniSat config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/MiniSat.cmake 
