@@ -44,6 +44,8 @@ target_link_libraries(Boolector_synthebtor Boolector_libboolector)
 set_target_properties(Boolector_synthebtor PROPERTIES OUTPUT_NAME synthebtor)
 
 
+set(Boolector_LIBRARIES Boolector_libboolector)
+
 configure_file(BoolectorConfig.cmake ${PROJECT_BINARY_DIR}/BoolectorConfig.cmake @ONLY)
 configure_file(BoolectorConfigVersion.cmake ${PROJECT_BINARY_DIR}/BoolectorConfigVersion.cmake @ONLY)
 ## create libBoolector config file for internal use

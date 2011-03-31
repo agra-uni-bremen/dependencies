@@ -18,6 +18,9 @@ build_dir=$build/$package-$version
 url=http://fmv.jku.at/$package/$source
 
 download_unpack() {
+  if [ "$duplicate" = "remove" ]; then
+    rm -rf $build_dir
+  fi
   mkdir -p $(dirname $build_dir) &&
   cd $(dirname $build_dir) &&
   [ -f $source ] || wget -O $source $url &&
@@ -36,8 +39,5 @@ build_install() {
     exit 1
   fi
   cd $build_dir &&
-  mkdir -p build &&
-  cd build &&
-  cmake .. -DCMAKE_INSTALL_PREFIX=$target &&
-  make install
+  cmake_build_install
 }

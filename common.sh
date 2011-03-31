@@ -45,9 +45,17 @@ install_cmake_files() {
   done
 }
 
+cmake_build_install() {
+  mkdir -p build &&
+  cd build &&
+  cmake ${1:-..} -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE}&&
+  make install
+}
+
 setup_environment() {
   ARCH=${ARCH:-$(uname -m)}
   duplicate=${duplicate:-skip}
+  BUILD_TYPE=${BUILD_TYPE:-RELEASE}
 }
 
 setup_environment
