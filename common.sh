@@ -15,7 +15,7 @@ run_scripts() {
   source $p/setup.sh
   for s in $@; do
     echo "calling $s for $p"
-    $s
+    $s || error "$s failed for $p"
   done
 }
 
@@ -32,11 +32,23 @@ with_deps() {
 }
 
 
+download_http() {
+  url="$2"
+  name="$1"
+  if which wget &>/dev/null; then
+    wget -c -O "$name" "$url"
+  elif which curl &>/dev/null; then
+    curl -C - -o "$name"  "$url"
+  else 
+    error "no tool for http download found"
+  fi
+}
+
 #
 # install all CMakeLists.txt files from the package to the current folder.
 # includes subfolders and keeps hierarchy
 #
-# currently all files ar symlinked.
+# currently all files are symlinked.
 #
 install_cmake_files() {
   find $package_dir -name CMakeLists.txt -o -name "*.cmake"| while read f
