@@ -6,6 +6,8 @@ set(zChaff_INCLUDE_DIR ${zChaff_CONFIG_DIR}/../../include)
 set(zChaff_INCLUDE_DIRS ${zChaff_INCLUDE_DIR})
 set(zChaff_LIBRARIES @zChaff_LIBRARIES@)
 
+set(zchaff_BIN_DIR      @CMAKE_INSTALL_PREFIX@/bin )
+set(zchaff_BIN_DIRS     ${zchaff_BIN_DIR} )
 set(zchaff_INCLUDE_DIR  ${zChaff_INCLUDE_DIR} )
 set(zchaff_INCLUDE_DIRS ${zChaff_INCLUDE_DIR} )
 set(zchaff_LIBRARIES    ${zChaff_LIBRARIES} )
