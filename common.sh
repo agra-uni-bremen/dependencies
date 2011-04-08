@@ -68,6 +68,13 @@ setup_environment() {
   ARCH=${ARCH:-$(uname -m)}
   duplicate=${duplicate:-skip}
   BUILD_TYPE=${BUILD_TYPE:-RELEASE}
+
+  case "$ARCH" in
+    i?86)   
+      export CFLAGS="-m32 $CFLAGS"
+      export CXXFLAGS="-m32 $CXXFLAGS"
+      ;;
+  esac
 }
 
 setup_environment
