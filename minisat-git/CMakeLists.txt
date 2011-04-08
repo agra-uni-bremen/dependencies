@@ -60,9 +60,6 @@ set(MiniSat_LIBRARIES MiniSat_libMiniSat)
 
 configure_file(MiniSatConfig.cmake ${PROJECT_BINARY_DIR}/MiniSatConfig.cmake @ONLY)
 configure_file(MiniSatConfigVersion.cmake ${PROJECT_BINARY_DIR}/MiniSatConfigVersion.cmake @ONLY)
-file(WRITE ${PROJECT_BINARY_DIR}/MiniSatConfigVersion.cmake 
-"
-")
 ## create libMiniSat config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/MiniSat.cmake 
 "set(MiniSat_INCLUDE_DIR 
