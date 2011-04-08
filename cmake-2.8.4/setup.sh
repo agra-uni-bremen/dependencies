@@ -18,7 +18,7 @@ url="http://www.cmake.org/files/v${version:0:3}/$source"
 
 download_unpack() {
   cd $build &&
-  [ -f $source ] || wget -O $source $url &&
+  [ -f $source ] || download_http $source $url &&
   tar -xf $source
 }
 
