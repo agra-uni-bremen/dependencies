@@ -20,7 +20,9 @@ url=http://ovh.dl.sourceforge.net/project/boost/boost/${version//_/.}/$source
 download_unpack() {
   cd $build &&
   [ -f $source ] || wget -O $source $url &&
-  tar -xf $source
+  message "unpacking $package" &&
+  tar -xf $source &&
+  message "finished unpacking $package"
 }
 
 
