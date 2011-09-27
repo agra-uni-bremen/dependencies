@@ -11,13 +11,22 @@ fi
 
 package=Z3
 version=2.18
-source=z3-x64-$version.tar.gz
-build_dir=$build/z3-x64-$version
+case "$ARCH" in
+  i?86)   
+    source=z3-$version.tar.gz
+    build_dir=$build/z3-$version
+    ;;
+  x86_64)
+    source=z3-x64-$version.tar.gz
+    build_dir=$build/z3-x64-$version
+    ;;
+  *) error "$package not avaiable for architechture $ARCH"; ;;
+esac
 url=http://research.microsoft.com/projects/z3/$source
 
 download_unpack() {
   cd $build &&
-  [ -f $source ] || wget -O $source $url &&
+  download_http $source "$url" && 
   tar -xf $source &&
   rm -rf $build_dir &&
   mv -f z3 $build_dir
