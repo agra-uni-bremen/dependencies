@@ -43,6 +43,7 @@ build_install() {
     toolset=gcc
   "
   LIBRARIES=" 
+    --with-asio
     --with-date_time
     --with-filesystem
     --with-graph
