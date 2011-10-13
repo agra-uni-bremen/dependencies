@@ -12,7 +12,6 @@ add_definitions(
   -DSIZEOF_VOID_P=${SIZEOF_VOID_P}
   -DSIZEOF_LONG=${SIZEOF_LONG}
   -DHAVE_IEEE_754
-  -DBSD
 )
 
 
