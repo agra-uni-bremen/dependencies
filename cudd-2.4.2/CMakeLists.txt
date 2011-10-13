@@ -1,8 +1,19 @@
 project(CUDD)
 
 cmake_minimum_required(VERSION 2.8)
+INCLUDE (CheckTypeSize) 
 
 set(STATIC_OR_SHARED SHARED CACHE STRING "Build STATIC or SHARED libaries")
+
+check_type_size(void* SIZEOF_VOID_P)
+check_type_size(long  SIZEOF_LONG  )
+
+add_definitions(
+  -DSIZEOF_VOID_P=${SIZEOF_VOID_P}
+  -DSIZEOF_LONG=${SIZEOF_LONG}
+  -DHAVE_IEEE_754
+  -DBSD
+)
 
 
 add_library(CUDD_util 
