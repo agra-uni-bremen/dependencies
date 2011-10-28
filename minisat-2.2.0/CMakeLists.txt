@@ -12,6 +12,7 @@ file(GLOB SIMP_HDRS minisat/simp/*.h)
 file(GLOB UTILS_HDRS minisat/utils/*.h)
 
 include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/minisat)
 message(STATUS ${PROJECT_SOURCE_DIR}})
 
 set(MiniSat_CXXFLAGS "-D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS")
@@ -20,7 +21,7 @@ add_definitions( ${MiniSat_CXXFLAGS} )
 
 add_library(MiniSat_libMiniSat  
   ${STATIC_OR_SHARED}
-  minisat/core/Solver.cc 
+  minisat/core/Solver.cc
   minisat/simp/SimpSolver.cc 
   ${UTILS_SRCS}
 )

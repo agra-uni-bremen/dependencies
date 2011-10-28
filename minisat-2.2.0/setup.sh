@@ -16,11 +16,12 @@ version=2.2.0
 source=$package-$version.tar.gz
 build_dir=$build/$package-$version
 url=http://minisat.se/downloads/$source
+
 download_unpack() {
   mkdir -p $build_dir &&
   cd $build_dir &&
   download_http $source $url &&
-  tar -xzf $source --strip=1 -C $build_dir
+  tar -xzf $source
 }
 
 
