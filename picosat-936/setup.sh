@@ -6,7 +6,7 @@ if [ -z "$build" ] ; then
   exit 1
 fi
 if [ -z "$package_dir" ] ; then 
-  echo '$build is undefined'
+  echo '$package_dir is undefined'
   exit 1
 fi
 
