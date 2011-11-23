@@ -16,7 +16,6 @@ add_library(lingeling_libLingeling
 set_target_properties(lingeling_libLingeling PROPERTIES OUTPUT_NAME lingeling)
 
 set(Lingeling_CXXFLAGS "-DNLGLOG -DNDEBUG -DNCHKSOL -DNLGLPICOSAT")
-
 add_executable(lingeling_lingeling
   lglib.c
   lglbnr.c
