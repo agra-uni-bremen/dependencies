@@ -10,7 +10,8 @@ package=lingeling
 version=587-9c0f11d-110302
 source=$package-$version.tar.gz
 build_dir=$build/$package-$version
-url=http://www.informatik.uni-bremen.de/~sfrehse/$source
+url=http://www.informatik.uni-bremen.de/~sfrehse/$source 
+echo "Download lingeling from $url"
 
 download_unpack() {
   if [ "$duplicate" = "remove" ]; then
