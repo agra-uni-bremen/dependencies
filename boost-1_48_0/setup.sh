@@ -1,18 +1,18 @@
 #!/bin/sh
 
 
-if [ -z "$build" ] ; then 
+if [ -z "$build" ] ; then
   echo '$build is undefined'
   exit 1
 fi
-if [ -z "$package_dir" ] ; then 
+if [ -z "$package_dir" ] ; then
   echo '$build is undefined'
   exit 1
 fi
 
 
 package=boost
-version=1_46_1
+version=1_48_0
 source=${package}_$version.tar.bz2
 build_dir=$build/${package}_$version
 url=http://ovh.dl.sourceforge.net/project/boost/boost/${version//_/.}/$source
@@ -31,7 +31,7 @@ pre_build() {
 }
 
 build_install() {
-  if [ -z "$target" ] ; then 
+  if [ -z "$target" ] ; then
     echo '$target is undefined'
     exit 1
   fi
@@ -42,7 +42,7 @@ build_install() {
     link=shared
     toolset=gcc
   "
-  LIBRARIES=" 
+  LIBRARIES="
     --with-date_time
     --with-filesystem
     --with-graph
