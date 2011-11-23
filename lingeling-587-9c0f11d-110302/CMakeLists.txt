@@ -16,6 +16,8 @@ add_library(lingeling_libLingeling
 set_target_properties(lingeling_libLingeling PROPERTIES OUTPUT_NAME lingeling)
 
 set(Lingeling_CXXFLAGS "-DNLGLOG -DNDEBUG -DNCHKSOL -DNLGLPICOSAT")
+
+set (${CMAKE_CXX_FLAGS} "${CMAKE_CXX_FLAGS} ${Lingeling_CXXFLAGS}")
 add_executable(lingeling_lingeling
   lglib.c
   lglbnr.c
