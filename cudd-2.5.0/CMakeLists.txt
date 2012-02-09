@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(CUDD)
+project(CUDD C)
+enable_language(CXX OPTIONAL)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
@@ -37,17 +38,20 @@ add_library(CUDD_util
   util/stub.c
   util/texpand.c
 )
+list(APPEND CUDD_LIBS CUDD_util)
 
 add_library(CUDD_epd
   ${STATIC_OR_SHARED}
   epd/epd.c
 )
+list(APPEND CUDD_LIBS CUDD_epd)
 
 add_library(CUDD_mtr
   ${STATIC_OR_SHARED}
   mtr/mtrGroup.c
   mtr/mtrBasic.c
 )
+list(APPEND CUDD_LIBS CUDD_mtr)
 
 include_directories(util)
 
@@ -56,6 +60,7 @@ add_library(CUDD_st
   st/st.c
 )
 target_link_libraries(CUDD_st CUDD_util)
+list(APPEND CUDD_LIBS CUDD_st)
 
 include_directories(mtr epd st)
 
@@ -125,14 +130,18 @@ add_library(CUDD_cudd
   cudd/cuddZddUtil.c
 )
 target_link_libraries(CUDD_cudd CUDD_st CUDD_mtr CUDD_epd)
+list(APPEND CUDD_LIBS CUDD_cudd)
 
 include_directories(cudd)
 
-add_library( CUDD_obj
-  ${STATIC_OR_SHARED}
-  obj/cuddObj.cc
-)
-target_link_libraries(CUDD_obj CUDD_cudd)
+if( CMAKE_CXX_COMPILER_WORKS )
+  add_library( CUDD_obj
+    ${STATIC_OR_SHARED}
+    obj/cuddObj.cc
+  )
+  target_link_libraries(CUDD_obj CUDD_cudd)
+  list(APPEND CUDD_LIBS CUDD_obj)
+endif()
 
 add_library(CUDD_dddmp
   ${STATIC_OR_SHARED}
@@ -153,6 +162,7 @@ add_library(CUDD_dddmp
 
 )
 target_link_libraries(CUDD_dddmp CUDD_cudd)
+list(APPEND CUDD_LIBS CUDD_dddmp)
 
 ############################################################
 # Test Binaries
@@ -182,13 +192,7 @@ endif()
 
 if( CMAKE_COMPILER_IS_GNUCC ) 
   set_property(TARGET
-    CUDD_cudd
-    CUDD_dddmp
-    CUDD_epd
-    CUDD_mtr
-    CUDD_obj
-    CUDD_st
-    CUDD_util
+    ${CUDD_LIBS}
     APPEND PROPERTY COMPILE_FLAGS "-malign-double")
 endif()
 
@@ -225,13 +229,7 @@ INSTALL( FILES
 install(EXPORT CUDD DESTINATION share/CUDD)
 
 install(TARGETS 
-  CUDD_cudd
-  CUDD_dddmp
-  CUDD_epd
-  CUDD_mtr
-  CUDD_obj
-  CUDD_st
-  CUDD_util
+  ${CUDD_LIBS}
   EXPORT CUDD
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
