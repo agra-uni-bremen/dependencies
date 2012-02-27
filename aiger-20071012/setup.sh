@@ -26,10 +26,7 @@ download_unpack() {
 
 pre_build() {
   cd $build_dir &&
-  find $package_dir -name CMakeLists.txt| while read f
-  do
-    ln -sf $f $(echo "$f" |sed "s@^$package_dir/@@")
-  done
+  install_cmake_files
 }
 
 build_install() {
