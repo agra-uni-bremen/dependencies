@@ -11,7 +11,7 @@ fi
 root="$(mkdir -p $1 && cd $1 && pwd)"
 
 target="$root"
-build="$root/build"
+build="${BUILD_DIR:-$root/build}"
 shift;
 
 mkdir -p "$target" 
