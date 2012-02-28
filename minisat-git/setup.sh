@@ -21,9 +21,9 @@ download_unpack() {
   mkdir -p $build_dir &&
   cd $build_dir &&
   if [ -d .git ]; then
-  	git pull
+  	env GIT_SSL_NO_VERIFY=true git pull
   else
-  	git clone $url .
+  	env GIT_SSL_NO_VERIFY=true git clone $url .
   fi
 }
 
