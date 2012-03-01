@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.8)
 project(CUDD C)
 enable_language(CXX OPTIONAL)
 
+set(CUDD_VERION 2.5.0)
+
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif()
@@ -198,16 +200,16 @@ endif()
 
 file(WRITE ${PROJECT_BINARY_DIR}/CUDDConfig.cmake 
 "set(CUDD_FOUND 1)
-set(CUDD_VERSION 2.4.2)
+set(CUDD_VERSION ${CUDD_VERSION})
 get_filename_component(CUDD_CONFIG_DIR "\${CMAKE_CURRENT_LIST_FILE}" PATH)
 set(CUDD_INCLUDE_DIR \${CUDD_CONFIG_DIR}/../../include)
 include("\${CUDD_CONFIG_DIR}/CUDD.cmake" )
 ")
 file(WRITE ${PROJECT_BINARY_DIR}/CUDDConfigVersion.cmake 
-"if(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 2.4.2)
+"if(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL ${CUDD_VERSION})
 	set(PACKAGE_VERSION_EXACT 1)
 	set(PACKAGE_VERSION_COMPATIBLE 1)
-endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 2.4.2)
+endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL ${CUDD_VERSION})
 ")
 ## create libCUDD config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/CUDD.cmake 
