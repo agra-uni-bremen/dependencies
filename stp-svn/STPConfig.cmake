@@ -1,0 +1,6 @@
+set(STP_VERSION 32:1611)
+get_filename_component(STP_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
+set(STP_BIN_DIRS     ${STP_DIR}/bin )
+set(STP_INCLUDE_DIRS ${STP_DIR}/include )
+set(STP_INCLUDE_DIR  ${STP_INCLUDE_DIRS} )
+set(STP_LIBRARIES    ${STP_DIR}/lib/libstp.a )
