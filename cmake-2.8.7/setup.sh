@@ -10,23 +10,21 @@ if [ -z "$package_dir" ] ; then
   exit 1
 fi
 
-
-package=aiger
-version=20071012
-source=$package-$version.zip
-build_dir=$build/$package-$version
-url=http://fmv.jku.at/aiger/$source
+package=cmake
+version=2.8.7
+source=${package}-$version.tar.gz
+build_dir=$build/${package}-$version
+url="http://www.cmake.org/files/v${version:0:3}/$source"
 
 download_unpack() {
   cd $build &&
-  [ -f $source ] || wget -O $source $url &&
-  unzip -o $source
+  [ -f $source ] || download_http $source $url &&
+  tar -xf $source
 }
 
 
 pre_build() {
-  cd $build_dir &&
-  install_cmake_files
+  true
 }
 
 build_install() {
@@ -35,8 +33,9 @@ build_install() {
     exit 1
   fi
   cd $build_dir &&
-  mkdir -p build &&
-  cd build &&
-  cmake .. -DCMAKE_INSTALL_PREFIX=$target &&
+  ./configure --prefix=$target &&
+  make &&
   make install
 }
+
+# vim: ts=2 sw=2 et

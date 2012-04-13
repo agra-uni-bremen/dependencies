@@ -13,6 +13,7 @@ fi
 
 package=swig
 version=2.0.2
+pcre_version=8.30
 source=${package}-$version.tar.gz
 build_dir=$build/${package}-$version
 url=http://ovh.dl.sourceforge.net/project/${package}/${package}/${package}-${version}/$source
@@ -22,7 +23,7 @@ download_unpack() {
   wget -c -O $source $url &&
   tar -xf $source &&
   cd $build_dir &&
-  wget -c ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.12.tar.gz
+  wget -c ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${pcre_version}.tar.gz
 }
 
 

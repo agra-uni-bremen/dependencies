@@ -5,20 +5,20 @@ if [ -z "$build" ] ; then
   echo '$build is undefined'
   exit 1
 fi
+if [ -z "$package_dir" ] ; then 
+  echo '$build is undefined'
+  exit 1
+fi
 
-package=lingeling
-version=587-9c0f11d-110302
+
+package=cudd
+version=2.5.0
 source=$package-$version.tar.gz
 build_dir=$build/$package-$version
-url=http://www.informatik.uni-bremen.de/~sfrehse/$source 
-echo "Download lingeling from $url"
+url=ftp://vlsi.colorado.edu/pub/$source
 
 download_unpack() {
-  if [ "$duplicate" = "remove" ]; then
-    rm -rf $build_dir
-  fi
-  mkdir -p $(dirname $build_dir) &&
-  cd $(dirname $build_dir) &&
+  cd $build &&
   [ -f $source ] || wget -O $source $url &&
   tar -xf $source
 }
@@ -35,5 +35,8 @@ build_install() {
     exit 1
   fi
   cd $build_dir &&
-  cmake_build_install
+  mkdir -p build &&
+  cd build &&
+  cmake .. -DCMAKE_INSTALL_PREFIX=$target &&
+  make install
 }
