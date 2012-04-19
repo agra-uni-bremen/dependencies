@@ -14,7 +14,7 @@ target="$root"
 build="${BUILD_DIR:-$root/build}"
 shift;
 
-mkdir -p "$target" 
+mkdir -p "$target"
 mkdir -p "$build"
 
 packages=$( with_deps $@ )
@@ -33,7 +33,7 @@ for p in $packages; do
         message "rebuilding existing package $p" &&
   	run_scripts build_install
 	continue
-    else 
+    else
       error "directory for $p already exists"
     fi
   fi
