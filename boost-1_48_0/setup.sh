@@ -60,7 +60,7 @@ build_install() {
   cd $build_dir &&
   mkdir -p build &&
   test -x bjam || ./bootstrap.sh &&
-  ./bjam $COMMON_OPTS $LIBRARIES install
+  ./bjam -q $COMMON_OPTS $LIBRARIES install
 }
 
 # vim: ts=2 sw=2 et
