@@ -23,6 +23,7 @@ download_unpack() {
   else
     svn co $url .
   fi
+  patch -p0 < $package_dir/added-pic-flags.patch
 }
   
 pre_build() {
