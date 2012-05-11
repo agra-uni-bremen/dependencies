@@ -14,7 +14,7 @@ version="3.0"
 source_llvm="llvm-$version.tar.gz"
 source_clang="clang-$version.tar.gz"
 build_dir=$build/$package-$version.build
-source_dir=$build/llvm-$version.src
+source_dir=$build/llvm-${version}.src
 url_llvm="http://llvm.org/releases/$version/$source_llvm"
 url_clang="http://llvm.org/releases/$version/$source_clang"
 
@@ -24,11 +24,11 @@ download_unpack() {
   download_http $source_clang $url_clang &&
   message "unpacking $package" &&
   tar -xf $source_llvm &&
-  tar -xf $source_clang &&
-  mv clang-$VERSION.src llvm-$VERSION.src/tools/clang
+  tar -xvf $source_clang &&
+  mv clang-$version.src $source_dir/tools/clang &&
 
-  mkdir $build_dir
-  cd $build_dir
+  mkdir -p $build_dir &&
+  cd $build_dir &&
   message "finished unpacking $package"
 
 }
@@ -44,7 +44,7 @@ build_install() {
   fi
   cd "$build_dir" &&
   $source_dir/configure --prefix=$target &&
-  make
+  make &&
   make install
 }
 
