@@ -23,7 +23,13 @@ download_unpack() {
   else
     svn co $url .
   fi
-  patch -p0 < $package_dir/added-pic-flags.patch
+  svn revert -R . &&
+  patch -p0 < $package_dir/added-pic-flags.patch &&
+  echo grep1 &&
+  grep -lr '\<namespace Minisat\>' src --exclude="*.svn*" | xargs -r sed -i 's/\<namespace Minisat\>/namespace MinisatSTP/g' &&
+  echo grep2 &&
+  grep -lr '\<Minisat::' src --exclude="*.svn*" | xargs -r sed -i 's/\<Minisat::/MinisatSTP::/g' &&
+  echo done
 }
   
 pre_build() {
