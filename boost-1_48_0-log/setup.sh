@@ -15,7 +15,7 @@ package=boost
 version=1_48_0
 source=${package}_$version.tar.bz2
 build_dir=$build/${package}_$version
-url=http://ovh.dl.sourceforge.net/project/boost/boost/${version//_/.}/$source
+url=http://osdn.dl.sourceforge.net/project/boost/boost/${version//_/.}/$source
 
 addon_package=boost-log
 addon_version=1.1
