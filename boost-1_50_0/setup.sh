@@ -60,7 +60,20 @@ build_install() {
   cd $build_dir &&
   mkdir -p build &&
   test -x bjam || ./bootstrap.sh &&
-  ./bjam -q $COMMON_OPTS $LIBRARIES install
+  ./bjam -q $COMMON_OPTS $LIBRARIES install || {
+    if [ ! -f /usr/include/zlib.h ] ; then
+      echo 'zlib.h was not found.'
+    fi
+    if [ ! -f /usr/include/bzlib.h ] ; then
+      echo 'bzlib.h was not found'
+    fi
+    PYTHON_NEEDED=`ls /usr/include/python*/Python.h &>/dev/null && echo false || echo true`
+    if [ "$PYTHON_NEEDED" = "true" ] ; then
+      echo 'Python.h was not found'
+    fi
+    echo "Install the packages containing the above header files to compile boost properly."
+    exit 1
+  }
 }
 
 # vim: ts=2 sw=2 et
