@@ -29,6 +29,9 @@ download_unpack() {
   cd $build &&
   download_http $source "$url" && 
   tar -xf $source &&
+  cd z3/include &&
+  patch -p1 < $package_dir/Z3-4.x.inline.patch &&
+  cd ../.. &&
   rm -rf $build_dir &&
   mv -f z3 $build_dir
 }
@@ -44,5 +47,5 @@ build_install() {
     exit 1
   fi
   mkdir -p $target &&
-  cp -r $build_dir/* $target 
+  cp -r $build_dir/* $target
 }
