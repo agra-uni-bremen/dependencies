@@ -29,7 +29,8 @@ download_unpack() {
   wget -c -O $source $url &&
   tar -xf $source &&
   cd $build_dir &&
-  patch -p1 < $package_dir/minisat_include_path.patch
+  patch -p1 < $package_dir/minisat_include_path.patch &&
+  patch -p1 < $package_dir/0003*.patch
 }
 
 
