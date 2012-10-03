@@ -4,7 +4,7 @@ base_dir=$( cd $(dirname $0) && pwd )
 source $base_dir/common.sh
 
 if [ $# -lt 2 ]; then
-  echo "usage: $0 <target_dir> package {package ...}"
+  echo "usage: $0 <target_dir> [-s <source_dir>] package {package ...}"
   exit 21
 fi
 
@@ -14,10 +14,15 @@ target="$root"
 build="${BUILD_DIR:-$root/build}"
 shift;
 
+case $1 in
+  --source|-s)  SOURCE="$2"; shift; shift;;
+esac
+
 mkdir -p "$target"
 mkdir -p "$build"
 
 packages=$( with_deps $@ )
+build="${SOURCE:-${build}}"
 
 for p in $packages; do
   target="$root/$p"
