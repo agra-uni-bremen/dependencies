@@ -1,0 +1,56 @@
+--- a/boolector.c	2012-10-08 15:23:18.067113715 +0200
++++ b/boolector.c	2012-10-08 15:47:19.910020250 +0200
+@@ -810,6 +810,17 @@
+   BTOR_ABORT_ARRAY_BOOLECTOR (e0);
+   BTOR_ABORT_ARRAY_BOOLECTOR (e1);
+   len = BTOR_REAL_ADDR_NODE (e0)->len;
++  int len1= BTOR_REAL_ADDR_NODE (e1)->len;
++  if( !btor_is_power_of_2_util (len) 
++      || btor_log_2_util (len) != BTOR_REAL_ADDR_NODE (e1)->len ) 
++  {
++    int tolen =  btor_next_power_of_2_util(len);
++    int loglen    = btor_log_2_util(tolen);
++    return boolector_slice(btor, boolector_sll ( btor,
++      boolector_uext(btor, e0, tolen-len),
++      (len1 > loglen) ?  boolector_slice(btor, e1, loglen-1, 0): e1 ),
++      len-1, 0);
++  }
+   BTOR_ABORT_BOOLECTOR (!btor_is_power_of_2_util (len),
+ 			"bit-width of 'e0' must be a power of 2");
+   BTOR_ABORT_BOOLECTOR (btor_log_2_util (len) != BTOR_REAL_ADDR_NODE (e1)->len,
+@@ -832,6 +843,17 @@
+   BTOR_ABORT_ARRAY_BOOLECTOR (e0);
+   BTOR_ABORT_ARRAY_BOOLECTOR (e1);
+   len = BTOR_REAL_ADDR_NODE (e0)->len;
++  int len1= BTOR_REAL_ADDR_NODE (e1)->len;
++  if( !btor_is_power_of_2_util (len)
++      || btor_log_2_util (len) != BTOR_REAL_ADDR_NODE (e1)->len )
++  {
++    int tolen =  btor_next_power_of_2_util(len);
++    int loglen    = btor_log_2_util(tolen);
++    return boolector_slice(btor, boolector_srl ( btor,
++      boolector_uext(btor, e0, tolen-len),
++      (len1 > loglen) ?  boolector_slice(btor, e1, loglen-1, 0): e1 ),
++      len-1, 0);
++  }
+   BTOR_ABORT_BOOLECTOR (!btor_is_power_of_2_util (len),
+ 			"bit-width of 'e0' must be a power of 2");
+   BTOR_ABORT_BOOLECTOR (btor_log_2_util (len) != BTOR_REAL_ADDR_NODE (e1)->len,
+@@ -854,6 +876,17 @@
+   BTOR_ABORT_ARRAY_BOOLECTOR (e0);
+   BTOR_ABORT_ARRAY_BOOLECTOR (e1);
+   len = BTOR_REAL_ADDR_NODE (e0)->len;
++  int len1= BTOR_REAL_ADDR_NODE (e1)->len;
++  if( !btor_is_power_of_2_util (len) 
++      || btor_log_2_util (len) != BTOR_REAL_ADDR_NODE (e1)->len ) 
++  {
++    int tolen =  btor_next_power_of_2_util(len);
++    int loglen    = btor_log_2_util(tolen);
++    return boolector_slice(btor, boolector_sra ( btor,
++      boolector_sext(btor, e0, tolen-len),
++      (len1 > loglen) ?  boolector_slice(btor, e1, loglen-1, 0): e1 ),
++      len-1, 0);
++  }
+   BTOR_ABORT_BOOLECTOR (!btor_is_power_of_2_util (len),
+ 			"bit-width of 'e0' must be a power of 2");
+   BTOR_ABORT_BOOLECTOR (btor_log_2_util (len) != BTOR_REAL_ADDR_NODE (e1)->len,
