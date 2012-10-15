@@ -1,0 +1,98 @@
+diff -u org/boolector.c new/boolector.c
+--- a/boolector.c	2012-07-26 11:31:10.000000000 +0200
++++ b/boolector.c	2012-09-25 15:28:41.855020676 +0200
+@@ -17,6 +17,16 @@
+ #include <stdio.h>
+ #include <limits.h>
+ 
++// this function will be called if an internal error occurs
++static void(*boolector_error_fun)(int) = 0;
++
++static inline void btor_exit(int exitcode) {
++  if(boolector_error_fun) {
++    (*boolector_error_fun)(exitcode);
++  }
++  exit(exitcode);
++}
++
+ /*------------------------------------------------------------------------*/
+ 
+ #define BTOR_ABORT_BOOLECTOR(cond,msg) \
+@@ -25,7 +35,7 @@
+     { \
+       printf ("[boolector] %s: %s\n", __func__, msg); \
+       fflush (stdout); \
+-      exit (BTOR_ERR_EXIT); \
++      btor_exit (BTOR_ERR_EXIT); \
+     } \
+ } while (0)
+ 
+@@ -36,7 +46,7 @@
+       printf ("[boolector] %s: ", __func__); \
+       printf ("'%s' must not be NULL\n", #arg); \
+       fflush (stdout); \
+-      exit (BTOR_ERR_EXIT); \
++      btor_exit (BTOR_ERR_EXIT); \
+     } \
+ } while (0)
+ 
+@@ -47,7 +57,7 @@
+       printf ("[boolector] %s: ", __func__); \
+       printf ("reference counter of '%s' must not be < 1\n", #arg); \
+       fflush (stdout); \
+-      exit (BTOR_ERR_EXIT); \
++      btor_exit (BTOR_ERR_EXIT); \
+     } \
+ } while (0)
+ 
+@@ -58,7 +68,7 @@
+       printf ("[boolector] %s: ", __func__); \
+       printf ("'%s' must not be an array\n", #arg); \
+       fflush (stdout); \
+-      exit (BTOR_ERR_EXIT); \
++      btor_exit (BTOR_ERR_EXIT); \
+     } \
+ } while (0)
+ 
+@@ -69,7 +79,7 @@
+       printf ("[boolector] %s: ", __func__); \
+       printf ("'%s' must not be a bit-vector\n", #arg); \
+       fflush (stdout); \
+-      exit (BTOR_ERR_EXIT); \
++      btor_exit (BTOR_ERR_EXIT); \
+     } \
+ } while (0)
+ 
+@@ -79,12 +89,17 @@
+     { \
+       printf("[boolector] %s: ", __func__); \
+       printf("bit-width of '%s' and '%s' must not be unequal\n",#arg1,#arg2); \
+-      exit (BTOR_ERR_EXIT); \
++      btor_exit (BTOR_ERR_EXIT); \
+     } \
+ } while (0)
+ 
+ /*------------------------------------------------------------------------*/
+ 
++void
++boolector_abort_function( void (*fun)(int) ) {
++  boolector_error_fun = fun;
++}
++
+ Btor *
+ boolector_new (void)
+ {
+diff -u org/boolector.h new/boolector.h
+--- a/boolector.h	2012-05-31 10:33:59.000000000 +0200
++++ b/boolector.h	2012-09-25 15:28:41.855020676 +0200
+@@ -1008,4 +1008,10 @@
+  */
+ void boolector_free_bv_assignment (Btor * btor, char * assignment);
+ 
++/**
++ * Sets the function to call when an internal error occurs (defaul: exit).
++ * \param fun Funtion taking an error code and terminating execution of boolector.
++ **/
++void boolector_abort_function( void (*fun)(int) );
++
+ #endif
