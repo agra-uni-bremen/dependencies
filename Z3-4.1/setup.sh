@@ -14,31 +14,40 @@ version=4.1
 case "$ARCH" in
   i?86)   
     source=z3-$version.tar.gz
-    build_dir=$build/z3-$version
+    src_dest=$src_dir/z3-$version
     ;;
   x86_64)
     source=z3-x64-$version.tar.gz
-    build_dir=$build/z3-x64-$version
+    src_dest=$src_dir/z3-x64-$version
     ;;
   *) error "$package not avaiable for architechture $ARCH"; ;;
 esac
-build_dir=$build/z3-x64-$version
 url=http://research.microsoft.com/projects/z3/$source
 
-download_unpack() {
-  cd $build &&
-  download_http $source "$url" && 
+download() {
+  cd $src_dir &&
+  download_http $source "$url"
+  cd -
+}
+
+unpack() {
+  cd $src_dir &&
   tar -xf $source &&
   cd z3/include &&
   patch -p1 < $package_dir/Z3-4.x.inline.patch &&
   cd ../.. &&
-  rm -rf $build_dir &&
-  mv -f z3 $build_dir
+  rm -rf $src_dest &&
+  mv -f z3 $src_dest
+}
+
+download_unpack() {
+  download &&
+  unpack
 }
 
 
 pre_build() {
-  cp $package_dir/Z3Config.cmake $build_dir
+  cp $package_dir/Z3Config.cmake $src_dest
 }
 
 build_install() {
@@ -47,5 +56,5 @@ build_install() {
     exit 1
   fi
   mkdir -p $target &&
-  cp -r $build_dir/* $target
+  mv $src_dest $target
 }

@@ -4,25 +4,35 @@ base_dir=$( cd $(dirname $0) && pwd )
 source $base_dir/common.sh
 
 if [ $# -lt 2 ]; then
-  echo "usage: $0 <target_dir> [-s <source_dir>] package {package ...}"
+  echo "usage: $0 [-d | -s <source_dir>] <target_dir> <package> {<package>}";
   exit 21
 fi
+
+from_src="no"
+dl_only="no"
+
+case $1 in
+  --source|-s)   src_dir="$2"; from_src="yes"; shift; shift;;
+  --download|-d) dl_only="yes"; shift;;
+esac
 
 root="$(mkdir -p $1 && cd $1 && pwd)"
 
 target="$root"
-build="${BUILD_DIR:-$root/build}"
+build="$root/build"
+src_dir="${src_dir:-$root/source}"
+src_dir="$(mkdir -p $src_dir && cd $src_dir && pwd)"
 shift;
 
-case $1 in
-  --source|-s)  SOURCE="$2"; shift; shift;;
-esac
-
 mkdir -p "$target"
-mkdir -p "$build"
+if [ $dl_only = "no" ]; then
+  mkdir -p "$build"
+fi &&
+if [ ! -d "$src_dir" ]; then
+  mkdir -p "$src_dir"
+fi
 
 packages=$( with_deps $@ )
-build="${SOURCE:-${build}}"
 
 for p in $packages; do
   target="$root/$p"
@@ -41,6 +51,14 @@ for p in $packages; do
     else
       error "directory for $p already exists"
     fi
+  fi
+  if [ $dl_only = "yes" ]; then
+    run_scripts download
+    continue
+  fi
+  if [ $from_src = "yes" ]; then
+    run_scripts unpack pre_build build_install
+    continue
   fi
   run_scripts download_unpack pre_build build_install
 done
