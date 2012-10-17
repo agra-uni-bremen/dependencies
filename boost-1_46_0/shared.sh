@@ -56,7 +56,7 @@ build_install() {
   cd $build_dir &&
   mkdir -p build &&
   test -x bjam || ./bootstrap.sh &&
-  ./bjam -q $COMMON_OPTS $LIBRARIES install || {
+  ./bjam -q $COMMON_OPTS $LIBRARIES -j$num_threads install || {
     local needed="false"
     if [ ! -f /usr/include/zlib.h ] ; then
       echo 'zlib.h was not found.'
