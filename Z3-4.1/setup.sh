@@ -1,60 +1,9 @@
 #!/bin/sh
 
-if [ -z "$build" ] ; then 
-  echo '$build is undefined'
-  exit 1
-fi
-if [ -z "$package_dir" ] ; then 
-  echo '$build is undefined'
-  exit 1
-fi
-
-package=Z3
 version=4.1
-case "$ARCH" in
-  i?86)   
-    source=z3-$version.tar.gz
-    src_dest=$src_dir/z3-$version
-    ;;
-  x86_64)
-    source=z3-x64-$version.tar.gz
-    src_dest=$src_dir/z3-x64-$version
-    ;;
-  *) error "$package not avaiable for architechture $ARCH"; ;;
-esac
-url=http://research.microsoft.com/projects/z3/$source
 
-download() {
-  cd $src_dir &&
-  download_http $source "$url"
-  cd -
-}
+cmake_config_file="$base_dir/Z3-2.19/Z3Config.cmake"
+patch_file="$base_dir/Z3-4.0/Z3-4.x.inline.patch"
+source "$base_dir/Z3-4.0/shared.sh"
 
-unpack() {
-  cd $src_dir &&
-  tar -xf $source &&
-  cd z3/include &&
-  patch -p1 < $package_dir/Z3-4.x.inline.patch &&
-  cd ../.. &&
-  rm -rf $src_dest &&
-  mv -f z3 $src_dest
-}
-
-download_unpack() {
-  download &&
-  unpack
-}
-
-
-pre_build() {
-  cp $package_dir/Z3Config.cmake $src_dest
-}
-
-build_install() {
-  if [ -z "$target" ] ; then 
-    echo '$target is undefined'
-    exit 1
-  fi
-  mkdir -p $target &&
-  mv $src_dest $target
-}
+# vim: ts=2 sw=2 et

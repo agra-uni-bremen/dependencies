@@ -1,4 +1,3 @@
-set(Z3_VERSION 2.15)
 get_filename_component(Z3_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
 set(Z3_BIN_DIRS     ${Z3_DIR}/bin )
 set(Z3_INCLUDE_DIRS ${Z3_DIR}/include )
