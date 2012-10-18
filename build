@@ -8,7 +8,7 @@ if [ $# -lt 2 ]; then
   exit 21
 fi
 
-from_src="no"
+from_cache="no"
 dl_only="no"
 
 case $1 in
@@ -26,17 +26,15 @@ fi
 root="$(mkdir -p $1 && cd $1 && pwd)"
 
 target="$root"
-build="$root/build"
-src_dir="${src_dir:-$root/source}"
-src_dir="$(mkdir -p $src_dir && cd $src_dir && pwd)"
+
 shift;
+cache="${cache:-$root/cache}"
+build="${build:-$root/build}"
 
 mkdir -p "$target"
+mkdir -p "$cache"
 if [ $dl_only = "no" ]; then
   mkdir -p "$build"
-fi &&
-if [ ! -d "$src_dir" ]; then
-  mkdir -p "$src_dir"
 fi
 
 packages=$( with_deps $@ )
@@ -63,9 +61,9 @@ for p in $packages; do
     run_scripts download
     continue
   fi
-  if [ $from_src = "yes" ]; then
+  if [ $from_cache = "yes" ]; then
     run_scripts unpack pre_build build_install
     continue
   fi
-  run_scripts download_unpack pre_build build_install
+  run_scripts download unpack pre_build build_install
 done

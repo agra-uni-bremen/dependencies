@@ -8,11 +8,16 @@ addon_url="http://downloads.sourceforge.net/project/boost-log/boost-log-1.1.zip?
 
 source "$base_dir/boost-1_46_0/shared.sh"
 
-unset -f download_unpack
-download_unpack() {
-  cd $build &&
-  download_http $source $url &&
-  download_http $addon_source $addon_url &&
+unset -f download
+download() {
+  cd $cache &&
+  download_http $source "$url" &&
+  download_http $addon_source "$addon_url"
+}
+
+unset -f unpack
+unpack() {
+  cd $cache &&
   message "unpacking $package" &&
   tar -xf $source &&
   message "finished unpacking $package" &&
@@ -23,8 +28,13 @@ download_unpack() {
 
 unset -f pre_build
 pre_build() {
-  cp $build/$addon_dir/boost $build_dir -R &&
-  cp $build/$addon_dir/libs $build_dir -R
+  cd $cache &&
+  rm -rf $build_dir &&
+  mv -f ${package}_$version $build_dir &&
+  cp -R $cache/$addon_dir/boost $build_dir &&
+  cp -R $cache/$addon_dir/libs $build_dir &&
+  rm -rf $cache/$addon_dir
+
 }
 
 # vim: ts=2 sw=2 et

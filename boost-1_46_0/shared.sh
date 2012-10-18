@@ -1,12 +1,7 @@
 #!/bin/sh
 
 if [ -z "$build" ] ; then
-  echo '$build is undefined'
-  exit 1
-fi
-if [ -z "$package_dir" ] ; then
-  echo '$build is undefined'
-  exit 1
+  error '$build is undefined'
 fi
 
 package=boost
@@ -14,16 +9,16 @@ source=${package}_$version.tar.bz2
 build_dir=$build/${package}_$version
 url=http://osdn.dl.sourceforge.net/project/boost/boost/${version//_/.}/$source
 
-download_unpack() {
-  cd $build &&
-  download_http $source $url &&
+unpack() {
+  cd $cache &&
   message "unpacking $package" &&
   tar -xf $source &&
   message "finished unpacking $package"
 }
 
 pre_build() {
-  true
+  rm -rf $build_dir &&
+  mv -f $cache/${package}_$version $build_dir
 }
 
 build_install() {
@@ -54,7 +49,6 @@ build_install() {
     --with-thread
   "
   cd $build_dir &&
-  mkdir -p build &&
   test -x bjam || ./bootstrap.sh &&
   ./bjam -q $COMMON_OPTS $LIBRARIES -j$num_threads install || {
     local needed="false"
