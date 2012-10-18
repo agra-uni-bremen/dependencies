@@ -3,31 +3,77 @@
 base_dir=$( cd $(dirname $0) && pwd )
 source $base_dir/common.sh
 
+usage() {
+  message "usage:                                                                          "
+  message "  ./build {options} <target_dir> <package> {<package>}"
+  message "  ./build <target_dir> {options} <package> {<package>}"
+  message "  ./build ( --help | -h )"
+  message "options:"
+  message "  --build <dir>   build packages in this folder"
+  message "   -b <dir>"
+  message "  --cache <dir>   specify the directory to the sources"
+  message "   -c <dir>       and skips the downloads"
+  message "  --download      only download the packages"
+  message "   -d             (won't work together with cache option)"
+  message "   -j <number>    defines the number of compiling threads"
+}
+
 if [ $# -lt 2 ]; then
-  echo "usage: $0 [-d | -s <source_dir>] [-j <num_threads_to_build>] <target_dir> <package> {<package>}";
+  usage
+  if [[ $1 == *-h* ]]; then
+    exit 0
+  fi
   exit 21
 fi
 
 from_cache="no"
 dl_only="no"
+num_threads=1
 
-case $1 in
-  --source|-s)   src_dir="$2"; from_src="yes"; shift; shift;;
-  --download|-d) dl_only="yes"; shift;;
-esac
-
-if [ $1 = "-j" ]; then
-  num_threads="$2";
-  shift; shift;
-else
-  num_threads=1
-fi
-
-root="$(mkdir -p $1 && cd $1 && pwd)"
+while [ -n "$1" ]; do
+  case $1 in
+    --build|-b)
+        build="$(mkdir -p $2 && cd $2 && pwd)"
+        shift;;
+    --cache|-c)
+        if [ $dl_only = "yes" ]; then
+          message "illegal usage of options"
+          usage;
+          exit 22;
+        fi
+        from_cache="yes";
+        cache="$(mkdir -p $2 && cd $2 && pwd)";
+        shift;;
+    --download|-d)
+        if [ $from_cache = "yes" ]; then
+          message "illegal usage of options"
+          usage;
+          exit 22;
+        fi
+        dl_only="yes";
+        cache=${root:-$(mkdir -p $2 && cd $2 && pwd)};;
+    --help|-h)
+        usage;
+        exit 0;;
+    -j)
+        num_threads="$2";
+        shift;;
+    -*)
+        message "unknown parameter: $1";
+        usage;
+        exit 22;;
+    *) # first time is target, further are packages
+        if [ -z $root ]; then
+          root="$(mkdir -p $1 && cd $1 && pwd)"
+        else
+          packages="$packages $1"
+        fi ;;
+  esac
+  shift;
+done
 
 target="$root"
 
-shift;
 cache="${cache:-$root/cache}"
 build="${build:-$root/build}"
 
@@ -37,7 +83,7 @@ if [ $dl_only = "no" ]; then
   mkdir -p "$build"
 fi
 
-packages=$( with_deps $@ )
+packages=$( with_deps $packages )
 
 for p in $packages; do
   target="$root/$p"
