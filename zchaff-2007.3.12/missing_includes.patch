@@ -45,12 +45,13 @@ diff -ur zchaff64/zminimal.cpp zchaff-2007.3.12/zminimal.cpp
 diff -ur zchaff64/zverify_df.cpp zchaff-2007.3.12/zverify_df.cpp
 --- zchaff64/zverify_df.cpp	2007-04-11 20:49:33.000000000 +0200
 +++ zchaff-2007.3.12/zverify_df.cpp	2011-04-08 13:44:00.016557463 +0200
-@@ -40,6 +40,8 @@
+@@ -40,6 +40,9 @@
  #include <iostream>
  #include <fstream>
  #include <assert.h>
 +#include <cstdlib>
 +#include <cstring>
++#include <unistd.h>
  
  using namespace std;
  
