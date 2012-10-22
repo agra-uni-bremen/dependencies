@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version=2.8.4
+version=2.8.9
 
 source $base_dir/cmake-2.8.4/shared.sh
 

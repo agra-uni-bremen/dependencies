@@ -1,5 +1,5 @@
 project(Boolector)
-set(Boolector_VERSION 1.4)
+set(Boolector_VERSION)
 
 cmake_minimum_required(VERSION 2.8)
 
@@ -10,7 +10,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 include_directories( ${PicoSAT_INCLUDE_DIR} )
 
-add_library( Boolector_libboolector
+add_library( Boolector_libboolector SHARED
   boolector.c
   btoraig.c
   btoraigvec.c

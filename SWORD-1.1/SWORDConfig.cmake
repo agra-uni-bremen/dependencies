@@ -1,4 +1,4 @@
-set(SWORD_VERSION 1.1)
+set(SWORD_VERSION)
 get_filename_component(SWORD_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
 set(SWORD_BIN_DIRS     ${SWORD_DIR}/bin )
 set(SWORD_BIN_DIR     ${SWORD_BIN_DIRS} )

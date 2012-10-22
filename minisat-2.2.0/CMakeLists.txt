@@ -29,8 +29,8 @@ add_library(MiniSat_libMiniSat
 find_library(LIBZ z)
 
 SET_TARGET_PROPERTIES( MiniSat_libMiniSat PROPERTIES
-  VERSION 2.1.0
-  SOVERSION 2.1.0
+  VERSION 2.2.0
+  SOVERSION 2.2.0
   OUTPUT_NAME minisat_core
 )
 

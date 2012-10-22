@@ -52,9 +52,9 @@ download_http() {
 # currently all files are symlinked.
 #
 install_cmake_files() {
-  find $package_dir -name CMakeLists.txt -o -name "*.cmake"| while read f
+  find ${1:-$package_dir} -name CMakeLists.txt -o -name "*.cmake"| while read f
   do
-    ln -sf $f $(echo "$f" |sed "s@^$package_dir/*@@")
+    ln -sf $f $(echo "$f" |sed "s@^${1:-$package_dir}/*@@")
   done
 }
 
@@ -62,7 +62,7 @@ cmake_build_install() {
   mkdir -p build &&
   cd build &&
   cmake ${1:-..} -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE}&&
-  make install
+  make -j$num_threads install
 }
 
 setup_environment() {
