@@ -1,6 +1,6 @@
 project(zChaff)
 cmake_minimum_required(VERSION 2.8)
-set(zChaff_VERSION 2007.3.12)
+set(zChaff_VERSION)
 
 set(STATIC_OR_SHARED SHARED CACHE STRING "Build STATIC or SHARED libaries")
 

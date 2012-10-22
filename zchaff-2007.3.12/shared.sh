@@ -34,7 +34,8 @@ unpack() {
 
 pre_build() {
   cd $build_dir &&
-  install_cmake_files $cmake_files_dir
+  install_cmake_files $cmake_files_dir &&
+  sed -i 3s/zChaff_VERSION/"zChaff_VERSION $version"/ $build_dir/CMakeLists.txt
 }
 
 build_install() {
