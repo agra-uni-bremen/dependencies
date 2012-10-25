@@ -5,8 +5,8 @@ download () {
   if [ -z $url ] || [ -z $source ]; then
     error "no url or source is defined"
   fi
-  if ! [ ${url:0:7} == http:// ] && ! [ ${url:0:6} == ftp:// ]; then
-    error "url isn't specified correct"
+  if ! [ ${url:0:7} == http:// ] && ! [ ${url:0:6} == ftp:// ] && ! [ ${url:0:8} == https:// ]; then
+    error "automatic downloading is only supported for http(s) and ftp urls."
   fi
 
   cd $cache
