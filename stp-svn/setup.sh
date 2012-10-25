@@ -15,21 +15,27 @@ source=nosourcefile
 build_dir=$build/$package-$version
 url=https://stp-fast-prover.svn.sourceforge.net/svnroot/stp-fast-prover/trunk/stp
 
-download_unpack() {
-  mkdir -p $build_dir &&
-  cd $build_dir &&
+download() {
+  mkdir -p $cache/$package-$version &&
+  cd $cache/$package-$version &&
   if [ -d .svn ]; then
     svn update
   else
     svn co $url .
   fi
-  svn revert -R . &&
+  svn revert -R .
+}
+
+unpack() {
+  cd $cache/$package-$version &&
   patch -p0 < $package_dir/added-pic-flags.patch &&
   echo grep1 &&
   grep -lr '\<namespace Minisat\>' src --exclude="*.svn*" | xargs -r sed -i 's/\<namespace Minisat\>/namespace MinisatSTP/g' &&
   echo grep2 &&
   grep -lr '\<Minisat::' src --exclude="*.svn*" | xargs -r sed -i 's/\<Minisat::/MinisatSTP::/g' &&
-  echo done
+  echo done &&
+  cd .. &&
+  cp -R $cache/$package-$version $build_dir
 }
   
 pre_build() {
