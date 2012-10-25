@@ -24,3 +24,15 @@ Index: src/sat/mtl/template.mk
  LFLAGS    += -lz
  
  .PHONY : s p d r rs clean 
+Index: src/to-sat/AIG/BBNodeAIG.h
+===================================================================
+--- src/to-sat/AIG/BBNodeAIG.h	(revision 1658)
++++ src/to-sat/AIG/BBNodeAIG.h	(working copy)
+@@ -12,6 +12,7 @@
+
+ #include "../../extlib-abc/aig.h"
+ #include <iostream>
++#include <inttypes.h>
+
+ namespace BEEV
+ {
