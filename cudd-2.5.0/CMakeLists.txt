@@ -53,6 +53,7 @@ add_library(CUDD_mtr
   mtr/mtrGroup.c
   mtr/mtrBasic.c
 )
+target_link_libraries( CUDD_mtr m )
 list(APPEND CUDD_LIBS CUDD_mtr)
 
 include_directories(util)
