@@ -14,7 +14,7 @@ bits=32
 
 case "$ARCH" in
   i?86)   source="sword-${version}-32bit.tar.gz"; bits=32;;
-  x86_64) source="sword-${version}-64bit.tar.gz"; bits=64;;
+  x86_64|x86-64) source="sword-${version}-64bit.tar.gz"; bits=64;;
   *) error "$package not avaiable for architechture $ARCH"; ;;
 esac
 

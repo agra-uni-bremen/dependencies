@@ -17,7 +17,7 @@ case "$ARCH" in
     export CFLAGS=-m32
     export CXXFLAGS=-m32
     ;;
-  x86_64) 
+  x86_64|x86-64)
     source="${package}.64bit.${version}.zip"; bits=64;;
   *) error "$package not avaiable for architechture $ARCH"; ;;
 esac

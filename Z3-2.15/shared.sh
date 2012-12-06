@@ -10,7 +10,7 @@ case "$ARCH" in
     source=z3-$version.tar.gz
     build_dir=$build/z3-$version
     ;;
-  x86_64)
+  x86_64|x86-64)
     source=z3-x64-$version.tar.gz
     build_dir=$build/z3-x64-$version
     ;;
