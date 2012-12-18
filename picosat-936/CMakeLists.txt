@@ -45,6 +45,7 @@ file(WRITE ${PROJECT_BINARY_DIR}/PicoSATConfig.cmake
 set(PicoSAT_VERSION 936)
 get_filename_component(PicoSAT_CONFIG_DIR "\${CMAKE_CURRENT_LIST_FILE}" PATH)
 set(PicoSAT_INCLUDE_DIR \${PicoSAT_CONFIG_DIR}/../../include)
+set(PicoSAT_LIBRARIES PicoSAT_libpicosat)
 include("\${PicoSAT_CONFIG_DIR}/PicoSAT.cmake" )
 ")
 file(WRITE ${PROJECT_BINARY_DIR}/PicoSATConfigVersion.cmake 
@@ -56,13 +57,7 @@ endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL 936)
 ## create libPicoSAT config file for internal use
 file(WRITE ${PROJECT_BINARY_DIR}/PicoSAT.cmake 
 "set(PicoSAT_INCLUDE_DIR 
-  ${PROJECT_SOURCE_DIR}/cudd
-  ${PROJECT_SOURCE_DIR}/dddmp
-  ${PROJECT_SOURCE_DIR}/epd
-  ${PROJECT_SOURCE_DIR}/mtr
-  ${PROJECT_SOURCE_DIR}/obj
-  ${PROJECT_SOURCE_DIR}/st
-  ${PROJECT_SOURCE_DIR}/util
+  ${PROJECT_SOURCE_DIR}/include
 )
 ")
 ## export target with install
