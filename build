@@ -105,11 +105,9 @@ for p in $packages; do
   fi
   if [ $dl_only = "yes" ]; then
     run_scripts download
-    continue
-  fi
-  if [ $from_cache = "yes" ]; then
+  elif [ $from_cache = "yes" ]; then
     run_scripts unpack pre_build build_install
-    continue
+  else
+    run_scripts download unpack pre_build build_install
   fi
-  run_scripts download unpack pre_build build_install
 done
