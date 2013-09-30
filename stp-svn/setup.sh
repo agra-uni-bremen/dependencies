@@ -13,7 +13,7 @@ package=stp
 version=svn
 source=nosourcefile
 build_dir=$build/$package-$version
-url=https://stp-fast-prover.svn.sourceforge.net/svnroot/stp-fast-prover/trunk/stp
+url=https://svn.code.sf.net/p/stp-fast-prover/code/trunk/stp
 
 download() {
   mkdir -p $cache/$package-$version &&
