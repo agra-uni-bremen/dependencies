@@ -1,6 +1,6 @@
 #!/bin/sh
 
-package=mpfr
+version="3.1.2"
 version_gmp="5.0.5"
 
-source $base_dir/gcc-4.8.1/shared.sh
+source $base_dir/mpfr-3.1.2/shared.sh

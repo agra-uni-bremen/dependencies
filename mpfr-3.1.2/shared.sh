@@ -9,7 +9,7 @@ if [ -z "$package_dir" ] ; then
   exit 1
 fi
 
-version="3.1.2"
+package=mpfr
 source="$package-$version.tar.bz2"
 build_dir=$build/$package-$version
 url="http://www.mpfr.org/mpfr-current/$source"
