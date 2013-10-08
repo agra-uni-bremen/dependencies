@@ -5,7 +5,7 @@ if [ -z "$build" ] ; then
   exit 1
 fi
 if [ -z "$package_dir" ] ; then
-  echo '$build is undefined'
+  echo '$package_dir is undefined'
   exit 1
 fi
 
@@ -14,13 +14,37 @@ source="gcc-$version.tar.bz2"
 build_dir=$build/$package-$version
 url="http://ftp.gwdg.de/pub/misc/gcc/releases/$package-$version/$source"
 
-dependencies="gmp-$version_gmp mpfr-$version_mpfr mpc-$version_mpc"
+MPFR="mpfr-${version_mpfr}"
+GMP="gmp-${version_gmp}"
+MPC="mpc-${version_mpc}"
+
+MPFR_URL="ftp://gcc.gnu.org/pub/gcc/infrastructure/$MPFR.tar.bz2"
+GMP_URL="ftp://gcc.gnu.org/pub/gcc/infrastructure/$GMP.tar.bz2"
+MPC_URL="ftp://gcc.gnu.org/pub/gcc/infrastructure/$MPC.tar.gz"
+
+download () {
+  cd $cache &&
+  download_http $source "$url" &&
+  download_http "$MPFR.tar.bz2" "$MPFR_URL" &&
+  download_http "$GMP.tar.bz2" "$GMP_URL" &&
+  download_http "$MPC.tar.gz" "$MPC_URL" &&
+  cd -
+}
 
 unpack() {
   cd $cache &&
   tar -xf $source &&
   rm -rf $build_dir &&
-  mv -f $package-$version $build_dir
+  mv -f $package-$version $build_dir &&
+
+  tar -xf "${MPFR}.tar.bz2" &&
+  mv -f "${MPFR}" "${build_dir}/mpfr" &&
+
+  tar -xf "${GMP}.tar.bz2" &&
+  mv -f "${GMP}" "${build_dir}/gmp" &&
+
+  tar -xf "${MPC}.tar.gz" &&
+  mv -f "${MPC}" "${build_dir}/mpc"
 }
 
 pre_build() {
@@ -41,9 +65,6 @@ build_install() {
   #make distclean
   local OPTS="
     --prefix=$target
-    --with-gmp=$root/gmp-$version_gmp
-    --with-mpfr=$root/mpfr-$version_mpfr
-    --with-mpc=$root/mpc-$version_mpc
     --disable-multilib
     --enable-languages=c,c++
   "
