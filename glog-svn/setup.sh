@@ -19,7 +19,7 @@ url=http://google-glog.googlecode.com/svn/trunk/
 download() {
   mkdir -p $build_dir &&
   cd $build_dir &&
-  if [ -d .git ]; then
+  if [ -d .svn ]; then
     svn update
   else
     svn checkout $url .
