@@ -1,0 +1,39 @@
+diff --git a/btorcore.c b/btorcore.c
+index 8407555..975e1b9 100644
+--- a/btorcore.c
++++ b/btorcore.c
+@@ -3303,7 +3303,7 @@ BTOR_SPLIT_SLICES_RESTART:
+ #ifndef BTOR_DO_NOT_PROCESS_SKELETON
+ /*------------------------------------------------------------------------*/
+ 
+-#include "lglib.h"
++#include <lglib.h>
+ 
+ static int
+ fixed_exp (Btor * btor, BtorNode * exp)
+diff --git a/btorsat.c b/btorsat.c
+index ca049a1..bd39208 100644
+--- a/btorsat.c
++++ b/btorsat.c
+@@ -16,7 +16,7 @@
+ #endif
+ 
+ #ifdef BTOR_USE_LINGELING
+-#include "lglib.h"
++#include <lglib.h>
+ #endif
+ 
+ #ifdef BTOR_USE_MINISAT
+diff --git a/btorsat.h b/btorsat.h
+index 0b47f17..0fe7802 100644
+--- a/btorsat.h
++++ b/btorsat.h
+@@ -81,7 +81,7 @@ struct BtorSATMgr
+ };
+ 
+ #if defined(BTOR_USE_LINGELING)
+-#include "../lingeling/lglib.h"
++#include <lglib.h>
+ typedef struct BtorLGL BtorLGL;
+ 
+ struct BtorLGL
