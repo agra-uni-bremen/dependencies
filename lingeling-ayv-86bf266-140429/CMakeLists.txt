@@ -54,7 +54,7 @@ set(Lingeling_VERSION ${Lingeling_VERSION})
 get_filename_component(Lingeling_CONFIG_DIR \${CMAKE_CURRENT_LIST_FILE} PATH)
 set(Lingeling_INCLUDE_DIR \${Lingeling_CONFIG_DIR}/../../include)
 set(Lingeling_LIBRARIES Lingeling_liblingeling)
-include("\${Lingeling_CONFIG_DIR}/Lingeling.cmake" )
+include(\"\${Lingeling_CONFIG_DIR}/Lingeling.cmake\" )
 ")
 file(WRITE ${PROJECT_BINARY_DIR}/LingelingConfigVersion.cmake 
 "if(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL ${Lingeling_VERSION})

@@ -17,7 +17,6 @@ url=http://fmv.jku.at/$package/$source
 
 unpack(){
   cd $cache &&
-  echo "[FIXME] $source"
   unzip $source -d $package-$version &&
   rm -rf $build_dir &&
   mv -f $cache/$package-$version $build_dir
