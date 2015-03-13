@@ -1,3 +1,3 @@
 #define LGL_CC "@CMAKE_SYSTEM@"
-#define LGL_CFLAGS "@LINGELING_FLAGS@"
+#define LGL_CFLAGS "@CMAKE_C_FLAGS@"
 
