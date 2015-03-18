@@ -33,7 +33,7 @@ pre_build() {
  
 build_install() {
   if [ -z "$target" ] ; then
-    echo '$target is undefinde'
+    echo "$target is undefinded"
     exit 1
   fi
   cd "$build_dir" &&
