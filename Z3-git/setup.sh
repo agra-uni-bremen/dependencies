@@ -14,7 +14,7 @@ branch=unstable
 package=Z3
 source=nosourcefile
 build_dir=$build/$package-$version
-url=https://git01.codeplex.com/z3 
+url=git@github.com:Z3Prover/z3.git
 
 download() {
   mkdir -p $cache/$package-$version &&
@@ -43,7 +43,7 @@ build_install() {
   cd "$build_dir" &&
   python scripts/mk_make.py --staticlib --prefix="$target" &&
   cd build &&
-  make &&
+  make -j $num_threads &&
   make install &&
   cp "$package_dir/Z3Config.cmake" "$target"
 }
