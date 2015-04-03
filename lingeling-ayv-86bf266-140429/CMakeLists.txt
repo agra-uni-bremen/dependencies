@@ -29,14 +29,14 @@ configure_file(
 
 add_library(Lingeling_liblingeling
   ${STATIC_OR_SHARED}
-  code/lglbnr.c  
+  code/lglbnr.c
   code/lgldimacs.c
   code/lglib.c
 )
 set_target_properties(Lingeling_liblingeling PROPERTIES OUTPUT_NAME lingeling)
 
 add_executable(Lingeling_lingeling
-  code/lglbnr.c  
+  code/lglbnr.c
   code/lgldimacs.c
   code/lglib.c
   code/lglmain.c
@@ -48,7 +48,7 @@ SET_TARGET_PROPERTIES( Lingeling_lingeling PROPERTIES
 )
 
 
-file(WRITE ${PROJECT_BINARY_DIR}/LingelingConfig.cmake 
+file(WRITE ${PROJECT_BINARY_DIR}/LingelingConfig.cmake
 "set(Lingeling_FOUND 1)
 set(Lingeling_VERSION ${Lingeling_VERSION})
 get_filename_component(Lingeling_CONFIG_DIR \${CMAKE_CURRENT_LIST_FILE} PATH)
@@ -56,15 +56,15 @@ set(Lingeling_INCLUDE_DIR \${Lingeling_CONFIG_DIR}/../../include)
 set(Lingeling_LIBRARIES Lingeling_liblingeling)
 include(\"\${Lingeling_CONFIG_DIR}/Lingeling.cmake\" )
 ")
-file(WRITE ${PROJECT_BINARY_DIR}/LingelingConfigVersion.cmake 
+file(WRITE ${PROJECT_BINARY_DIR}/LingelingConfigVersion.cmake
 "if(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL ${Lingeling_VERSION})
 set(PACKAGE_VERSION_EXACT 1)
 set(PACKAGE_VERSION_COMPATIBLE 1)
 endif(\"\${PACKAGE_FIND_VERSION}\" VERSION_EQUAL ${Lingeling_VERSION})
 ")
 ## create libLingeling config file for internal use
-file(WRITE ${PROJECT_BINARY_DIR}/Lingeling.cmake 
-"set(Lingeling_INCLUDE_DIR 
+file(WRITE ${PROJECT_BINARY_DIR}/Lingeling.cmake
+"set(Lingeling_INCLUDE_DIR
   ${PROJECT_SOURCE_DIR}/include
 )
 ")
@@ -75,7 +75,7 @@ INSTALL( FILES
   DESTINATION share/Lingeling)
 install(EXPORT Lingeling DESTINATION share/Lingeling)
 
-install(TARGETS 
+install(TARGETS
   Lingeling_liblingeling
   Lingeling_lingeling
   EXPORT Lingeling
@@ -85,11 +85,11 @@ install(TARGETS
 )
 
 install(FILES
-  code/lglcfg.h  
-  code/lglcflags.h  
-  code/lgldimacs.h  
+  code/lglcfg.h
+  code/lglcflags.h
+  code/lgldimacs.h
   code/lglib.h
-  DESTINATION include 
+  DESTINATION include
 )
 
 # vim: sw=2 tabstop=2 expandtab:
