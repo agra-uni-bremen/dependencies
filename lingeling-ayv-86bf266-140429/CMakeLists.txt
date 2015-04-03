@@ -1,6 +1,6 @@
 project(Lingeling)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.11)
 
 set(STATIC_OR_SHARED SHARED CACHE STRING "Build STATIC or SHARED libaries")
 
