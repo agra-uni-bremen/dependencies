@@ -22,50 +22,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${SRC_PREFIX})
 
 set( libboolector_HEADER
 ${SRC_PREFIX}/boolector.h
-${SRC_PREFIX}/btorabort.h
-${SRC_PREFIX}/btoraig.h
-${SRC_PREFIX}/btoraigvec.h
-${SRC_PREFIX}/btorass.h
-${SRC_PREFIX}/btorbeta.h
-${SRC_PREFIX}/btorbitvec.h
-${SRC_PREFIX}/btorchkclone.h
-${SRC_PREFIX}/btorclone.h
-${SRC_PREFIX}/btorconfig.h
-${SRC_PREFIX}/btorconst.h
-${SRC_PREFIX}/btorcore.h
-${SRC_PREFIX}/btordbg.h
-${SRC_PREFIX}/btordcr.h
-${SRC_PREFIX}/btorexit.h
-${SRC_PREFIX}/btorexp.h
-${SRC_PREFIX}/btorfmt.h
-${SRC_PREFIX}/btorhash.h
-${SRC_PREFIX}/btoriter.h
-${SRC_PREFIX}/btorlog.h
-${SRC_PREFIX}/btorlogic.h
-${SRC_PREFIX}/btormain.h
-${SRC_PREFIX}/btormap.h
-${SRC_PREFIX}/btormc.h
-${SRC_PREFIX}/btormem.h
-${SRC_PREFIX}/btorminisat.h
-${SRC_PREFIX}/btormisc.h
-${SRC_PREFIX}/btormodel.h
-${SRC_PREFIX}/btormsg.h
-${SRC_PREFIX}/btoropt.h
-${SRC_PREFIX}/btorparamcache.h
-${SRC_PREFIX}/btorparse.h
-${SRC_PREFIX}/btorprintmodel.h
-${SRC_PREFIX}/btorqueue.h
-${SRC_PREFIX}/btorrewrite.h
-${SRC_PREFIX}/btorsat.h
-${SRC_PREFIX}/btorsort.h
-${SRC_PREFIX}/btorstack.h
-${SRC_PREFIX}/btortrapi.h
-${SRC_PREFIX}/btorutil.h
-${SRC_PREFIX}/parser/btorsmt2.h
-${SRC_PREFIX}/parser/btorbtor.h
-${SRC_PREFIX}/parser/btorsmt.h
-${SRC_PREFIX}/dumper/btordumpbtor.h
-${SRC_PREFIX}/dumper/btordumpsmt.h
 )
 
 set( libboolector_SRC
