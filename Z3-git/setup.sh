@@ -14,7 +14,7 @@ branch=unstable
 package=Z3
 source=nosourcefile
 build_dir=$build/$package-$version
-url=git@github.com:Z3Prover/z3.git
+url='https://github.com/Z3Prover/z3.git'
 
 download() {
   mkdir -p $cache/$package-$version &&
