@@ -45,6 +45,23 @@ download_http() {
   fi
 }
 
+download_git() {
+  dir="$1"
+  url="$2"
+  branch="$3"
+
+  mkdir -p $dir &&
+  cd $dir &&
+  if [ -d .git ]; then
+    git set-url origin "$url"
+    git fetch origin
+  else
+    git clone -b "$branch" "$url" .
+  fi
+  git reset --hard "origin/$branch"
+}
+
+
 #
 # install all CMakeLists.txt files from the package to the current folder.
 # includes subfolders and keeps hierarchy
