@@ -76,9 +76,13 @@ install_cmake_files() {
 }
 
 cmake_build_install() {
+  local src=${1:-..}
+  shift
   mkdir -p build &&
   cd build &&
-  cmake ${1:-..} -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE}&&
+
+  echo cmake -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE} $@ ${src} &&
+  cmake -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE} $@ ${src} &&
   make -j$num_threads install
 }
 
