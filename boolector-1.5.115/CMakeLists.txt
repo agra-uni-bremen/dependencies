@@ -29,7 +29,7 @@ add_library( Boolector_libboolector SHARED
 add_definitions( -DBTOR_USE_MINISAT )
 
 set_target_properties(Boolector_libboolector PROPERTIES OUTPUT_NAME boolector)
-target_link_libraries(Boolector_libboolector MiniSat_libMiniSat)
+target_link_libraries(Boolector_libboolector ${MiniSat_LIBRARIES})
 
 add_executable( Boolector_boolector boolectormain.c)
 target_link_libraries(Boolector_boolector Boolector_libboolector)
