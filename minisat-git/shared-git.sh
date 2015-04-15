@@ -1,9 +1,8 @@
 #!/bin/sh
 
+package=minisat
 version=git
-
-source $base_dir/minisat-2.2.0/shared.sh
-
+build_dir=$build/$package-$version
 url=https://github.com/niklasso/minisat.git
 
 unset -f download
@@ -17,9 +16,18 @@ download() {
   fi
 }
 
-unset -f unpack
 unpack() {
   true
+}
+
+build_install() {
+  if [ -z "$target" ] ; then
+    echo '$target is undefined'
+    exit 1
+  fi
+  cd $build_dir &&
+  cmake_build_install &&
+  cp $package_dir/MiniSatConfig.cmake $target/
 }
 
 # vim: ts=2 sw=2 et
