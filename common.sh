@@ -45,6 +45,23 @@ download_http() {
   fi
 }
 
+download_git() {
+  dir="$1"
+  url="$2"
+  branch="$3"
+
+  mkdir -p $dir &&
+  cd $dir &&
+  if [ -d .git ]; then
+    git set-url origin "$url"
+    git fetch origin
+  else
+    git clone -b "$branch" "$url" .
+  fi
+  git reset --hard "origin/$branch"
+}
+
+
 #
 # install all CMakeLists.txt files from the package to the current folder.
 # includes subfolders and keeps hierarchy
@@ -59,9 +76,13 @@ install_cmake_files() {
 }
 
 cmake_build_install() {
+  local src=${1:-..}
+  shift
   mkdir -p build &&
   cd build &&
-  cmake ${1:-..} -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE}&&
+
+  echo cmake -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE} $@ ${src} &&
+  cmake -DCMAKE_INSTALL_PREFIX=$target -DCMAKE_BUILD_TYPE=${BUILD_TYPE} $@ ${src} &&
   make -j$num_threads install
 }
 

@@ -58,6 +58,8 @@ while [ -n "$1" ]; do
     -j)
         num_threads="$2";
         shift;;
+    -j*)
+        num_threads="${1/-j}";;
     -*)
         message "unknown parameter: $1";
         usage;

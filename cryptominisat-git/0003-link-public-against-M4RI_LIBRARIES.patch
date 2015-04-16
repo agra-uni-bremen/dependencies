@@ -1,0 +1,45 @@
+From 2972ed8cbb8268c3424db146cfa534a8e9a6c946 Mon Sep 17 00:00:00 2001
+From: Finn Haedicke <finn_haedicke@gmx.net>
+Date: Mon, 13 Apr 2015 12:28:04 +0200
+Subject: [PATCH 3/3] link public against M4RI_LIBRARIES
+
+This way other CMake projects can pick up M4RI, even when
+it is installed locally.
+---
+ cryptominisat4/CMakeLists.txt | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
+
+diff --git a/cryptominisat4/CMakeLists.txt b/cryptominisat4/CMakeLists.txt
+index b97e827..a4bc280 100644
+--- a/cryptominisat4/CMakeLists.txt
++++ b/cryptominisat4/CMakeLists.txt
+@@ -52,16 +52,8 @@ set(cryptoms_lib_link_libs "")
+ if (M4RI_FOUND)
+     include_directories(${M4RI_INCLUDE_DIRS})
+ 
+-    if (STATICCOMPILE)
+-        add_library(m4ri STATIC IMPORTED)
+-    else (STATICCOMPILE)
+-        add_library(m4ri SHARED IMPORTED)
+-    endif (STATICCOMPILE)
+-
+-    set_property(TARGET m4ri PROPERTY IMPORTED_LOCATION ${M4RI_LIBRARIES})
+-
+     SET(cryptoms_lib_files ${cryptoms_lib_files} xorfinder.cpp)
+-    SET(cryptoms_lib_link_libs ${cryptoms_lib_link_libs} m4ri)
++    SET(cryptoms_lib_link_libs ${cryptoms_lib_link_libs} ${M4RI_LIBRARIES})
+ endif (M4RI_FOUND)
+ 
+ if (MYSQL_FOUND AND STATS)
+@@ -99,7 +91,7 @@ if (ALSO_BUILD_STATIC_LIB)
+ endif()
+ add_library(libcryptominisat4 SHARED ${cms_lib_objects})
+ target_link_libraries(libcryptominisat4
+-    ${cryptoms_lib_link_libs}
++    LINK_PUBLIC ${cryptoms_lib_link_libs}
+ )
+ set_target_properties(libcryptominisat4 PROPERTIES
+     OUTPUT_NAME cryptominisat4
+-- 
+2.1.0
+
