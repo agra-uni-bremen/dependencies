@@ -20,10 +20,8 @@ unpack() {
   cd $cache &&
   tar -xf $source &&
   mv -f $package-$version $build_dir
-}
-
-pre_build() {
-  true
+  cd $build_dir &&
+  patch -p1 < $package_dir/0001-*.patch
 }
 
 build_install() {
