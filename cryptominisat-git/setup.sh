@@ -26,8 +26,7 @@ unpack() {
 }
 
 pre_build() {
-  cd "$build_dir" &&
-  git apply $package_dir/*.patch
+  true
 }
 
 build_install() {
