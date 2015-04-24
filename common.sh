@@ -36,9 +36,9 @@ with_deps() {
 download_http() {
   url="$2"
   name="$1"
-  if which wget &>/dev/null; then
+  if type -p wget &>/dev/null; then
     wget -c -O "$name" "$url"
-  elif which curl &>/dev/null; then
+  elif type -p curl &>/dev/null; then
     curl -C - -o "$name"  "$url"
   else 
     error "no tool for http download found"
