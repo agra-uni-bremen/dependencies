@@ -10,7 +10,7 @@ if [ -z "$package_dir" ] ; then
 fi
 
 version=git
-branch=unstable
+branch=master
 package=Z3
 source=nosourcefile
 build_dir=$build/$package-$version
