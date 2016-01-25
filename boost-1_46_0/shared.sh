@@ -7,7 +7,7 @@ fi
 package=boost
 source=${package}_$version.tar.bz2
 build_dir=$build/${package}_$version
-url=http://osdn.dl.sourceforge.net/project/boost/boost/${version//_/.}/$source
+url=http://sourceforge.net/projects/boost/files/boost/${version//_/.}/$source/download
 
 unpack() {
   cd $cache &&
