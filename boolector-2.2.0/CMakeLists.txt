@@ -22,6 +22,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${SRC_PREFIX})
 
 set( libboolector_HEADER
 ${SRC_PREFIX}/boolector.h
+${SRC_PREFIX}/btortypes.h
 )
 
 set( libboolector_SRC
