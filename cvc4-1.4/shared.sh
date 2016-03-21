@@ -14,7 +14,13 @@ source="$package-$version.tar.gz"
 build_dir=$build/$package-$version
 url="http://cvc4.cs.nyu.edu/builds/src/$source"
 
-dependencies="libantlr3c-3.4 boost-1_55_0"
+if [ -z "$BOOST_ROOT" ]; then
+  dependencies="libantlr3c-3.4 boost-1_55_0"
+  boost_path="$root/boost-1_55_0"
+else
+  dependencies="libantlr3c-3.4"
+  boost_path="$BOOST_ROOT"
+fi
 
 unpack() {
   cd $cache &&
@@ -33,7 +39,7 @@ build_install() {
   cd "$build_dir" &&
   # build CVC4 with --bsd to allow usage under the terms of
   # the modified BSD license.
-  ./configure --prefix="$target" --bsd --with-antlr-dir=$root/libantlr3c-3.4 --with-boost=$root/boost-1_55_0 &&
+  ./configure --prefix="$target" --bsd --with-antlr-dir=$root/libantlr3c-3.4 --with-boost=$boost_path &&
   make -j $num_threads &&
   make install &&
   cp -f "$package_dir/CVC4Config.cmake" "$target/CVC4Config.cmake"
