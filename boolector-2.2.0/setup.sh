@@ -2,7 +2,7 @@
 
 version=2.2.0
 
-dependencies="lingeling-bal-2293bef-151109"
+dependencies="lingeling-ayv-86bf266-140429 minisat-git"
 
 patches_dir=$base_dir/boolector-$version
 cmake_files_dir=$base_dir/boolector-$version
