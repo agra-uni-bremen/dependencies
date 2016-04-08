@@ -16,9 +16,9 @@ build_dir=$build/$package-$version
 url="http://cvc4.cs.nyu.edu/builds/src/unstable/$source"
 
 unpack() {
+  cd $cache &&
   src_dir=`tar --exclude="*/*" -tf $source` &&
   echo $src_dir &&
-  cd $cache &&
   tar -xf $source &&
   mv -f $src_dir $build_dir &&
   cd $build_dir
