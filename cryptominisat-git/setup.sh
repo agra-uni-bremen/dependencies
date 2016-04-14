@@ -15,7 +15,13 @@ source=$package-$version.tar.bz2
 build_dir=$build/${package}-${version}
 url="https://github.com/msoos/cryptominisat.git"
 
-dependencies="m4ri-20140914 boost-1_55_0"
+if [ -z "$BOOST_ROOT" ]; then
+  dependencies="m4ri-20140914 boost-1_55_0"
+  boost_path="$root/boost-1_55_0"
+else
+  dependencies="m4ri-20140914"
+  boost_path="$BOOST_ROOT"
+fi
 
 download() {
   download_git "$build_dir" "$url" "master"
@@ -36,7 +42,7 @@ build_install() {
   fi
   # Note that the directory is packaged with an additional '4' in the name
   cd "$build_dir" &&
-  export CMAKE_PREFIX_PATH="$root/m4ri-20140914:$root/boost-1_55_0" &&
+  export CMAKE_PREFIX_PATH="$root/m4ri-20140914:$boost_path" &&
   cmake_build_install .. \
 	-DCMAKE_DISABLE_FIND_PACKAGE_PythonInterp=true \
 	-DCMAKE_DISABLE_FIND_PACKAGE_PythonLibs=true
