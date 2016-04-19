@@ -3,7 +3,7 @@
 package=minisat
 version=git
 build_dir=$build/$package-$version
-url=https://github.com/niklasso/minisat.git
+url=https://github.com/stp/minisat.git
 
 unset -f download
 download() {
