@@ -11,7 +11,6 @@ fi
 
 
 package=picosat
-version=936
 source=$package-$version.tar.gz
 build_dir=$build/$package-$version
 url=http://fmv.jku.at/$package/$source
