@@ -1,7 +1,5 @@
 #!/bin/sh
 
-version=svn
-
 if [ -z "$build" ] ; then
   echo '$build is undefined'
   exit 1
@@ -11,19 +9,22 @@ if [ -z "$package_dir" ] ; then
   exit 1
 fi
 
+version=git-0.3.3
 package=glog
 source=nosourcefile
+branch=v0.3.3
 build_dir=$build/$package-$version
-url=http://google-glog.googlecode.com/svn/trunk/
+url=https://github.com/google/glog.git
 
 download() {
   mkdir -p $build_dir &&
   cd $build_dir &&
-  if [ -d .svn ]; then
-    svn update
+  if [ -d .git ]; then
+    git pull
   else
-    svn checkout $url .
+    git clone -b $branch $url .
   fi
+  git reset --hard HEAD
 }
 
 unpack() {
