@@ -22,7 +22,8 @@ unpack() {
   cd $build_dir &&
   patch -p1 < $patches_dir/minisat_include_path.patch &&
   patch -p1 < $patches_dir/0003*.patch &&
-  patch -p1 < $patches_dir/0014*.patch
+  patch -p1 < $patches_dir/0014*.patch &&
+  patch < $patches_dir/array_read.patch
 }
 
 pre_build() {

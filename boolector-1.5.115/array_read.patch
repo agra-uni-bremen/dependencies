@@ -1,0 +1,29 @@
+--- btorexp.c	2016-06-08 14:48:09.343099466 +0200
++++ btorexp.c.new	2016-06-08 14:47:20.883997152 +0200
+@@ -8771,6 +8771,18 @@
+     }
+ }
+ 
++static void
++synthesize_all_reads (Btor * btor)
++{
++  BtorNode *n;
++  int i;
++  for (i = 0; i < btor->unique_table.size; i++)
++    for (n = btor->unique_table.chains[i]; n; n = n->next)
++      if (BTOR_IS_READ_NODE (n))
++       synthesize_exp (btor, n, 0);
++}
++
++ 
+ static int
+ btor_sat_aux_btor (Btor * btor)
+ {
+@@ -8822,6 +8834,7 @@
+       {
+ 	synthesize_all_var_rhs (btor);
+ 	synthesize_all_array_rhs (btor);
++	synthesize_all_reads (btor);
+       }
+ 
+   } while (btor->unsynthesized_constraints->count > 0);
