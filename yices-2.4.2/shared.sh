@@ -38,7 +38,7 @@ build_install() {
   make &&
   make install &&
   install_cmake_files $cmake_files_dir &&
-  cp YicesConfig.cmake "$target"
+  cp yices2-config.cmake "$target"
 }
 
 # vim: ts=2 sw=2 et

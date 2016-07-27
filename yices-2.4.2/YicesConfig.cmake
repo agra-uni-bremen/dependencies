@@ -1,5 +1,0 @@
-get_filename_component(YICES_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
-set(YICES_BIN_DIRS     ${YICES_DIR}/bin )
-set(YICES_INCLUDE_DIRS ${YICES_DIR}/include )
-set(YICES_INCLUDE_DIR  ${YICES_INCLUDE_DIRS} )
-set(YICES_LIBRARIES    ${YICES_DIR}/lib/libyices.so )
