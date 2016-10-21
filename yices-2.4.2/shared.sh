@@ -10,7 +10,6 @@ if [ -z "$package_dir" ] ; then
 fi
 
 package=yices
-version=2.4.2
 source=$package-$version-src.tar.gz
 build_dir=$build/$package-$version
 url="http://yices.csl.sri.com/cgi-bin/yices2-newnewdownload.cgi?file=$source&accept=I+Agree"
@@ -24,8 +23,7 @@ unpack(){
 }
 
 pre_build() {
-  cd $build_dir &&
-  install_cmake_files $cmake_files_dir
+  cd $build_dir
 }
 
 build_install() {
@@ -37,8 +35,7 @@ build_install() {
   ./configure --prefix="$target" &&
   make &&
   make install &&
-  install_cmake_files $cmake_files_dir &&
-  cp yices2-config.cmake "$target"
+  cp $config_files_dir/yices2-config.cmake "$target"
 }
 
 # vim: ts=2 sw=2 et
