@@ -1,0 +1,6 @@
+#define LGL_OS "@HOSTNAME@"
+#define LGL_COMPILED "@COMPILATION_TIMESTAMP@"
+#define LGL_RELEASED "Wed Mar  8 14:20:04 CET 2017"
+#define LGL_VERSION "bbc"
+#define LGL_ID "923038088b727dcc8bd03aa8dfb5013bd03bf8c4"
+
