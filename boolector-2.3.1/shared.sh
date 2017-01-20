@@ -29,8 +29,8 @@ unpack(){
   cd $build_dir/${boolector_prefix} &&
   cd src &&
   patch -p1 -i $patches_dir/minisat_include.patch &&
-  patch -p1 -i  $patches_dir/lingeling_include_path.patch #&&
-  #patch -p1 < $patches_dir/0014*.patch
+  patch -p1 -i  $patches_dir/lingeling_include_path.patch &&
+  patch -p1 < $patches_dir/0014*.patch
 }
 
 pre_build() {
