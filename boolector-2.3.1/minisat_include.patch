@@ -1,0 +1,12 @@
+--- src/btorminisat.cc	2016-12-17 03:47:54.000000000 +0100
++++ src/btorminisat.cc	2017-01-18 10:28:51.384715704 +0100
+@@ -20,7 +20,7 @@
+ #define __STDC_FORMAT_MACROS
+ #endif
+ 
+-#include "../minisat/minisat/simp/SimpSolver.h"
++#include <minisat/simp/SimpSolver.h>
+ 
+ #include <cassert>
+ #include <cstring>
+
