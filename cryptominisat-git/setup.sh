@@ -16,8 +16,8 @@ build_dir=$build/${package}-${version}
 url="https://github.com/msoos/cryptominisat.git"
 
 if [ -z "$BOOST_ROOT" ]; then
-  dependencies="m4ri-20140914 boost-1_55_0"
-  boost_path="$root/boost-1_55_0"
+  dependencies="m4ri-20140914 $DEPS_BOOST"
+  boost_path="$root/$DEPS_BOOST"
 else
   dependencies="m4ri-20140914"
   boost_path="$BOOST_ROOT"
