@@ -13,7 +13,7 @@ version=20140914
 package=m4ri
 source=$package-$version.tar.gz
 build_dir=$build/$package-$version
-url="https://drone.io/bitbucket.org/malb/m4ri/files/$source"
+url="https://bitbucket.org/malb/m4ri/downloads/$source"
 
 download() {  
   cd $cache &&
