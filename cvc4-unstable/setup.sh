@@ -25,8 +25,8 @@ unpack() {
 }
 
 if [ -z "$BOOST_ROOT" ]; then
-  dependencies="libantlr3c-3.4 boost-1_55_0"
-  boost_path="$root/boost-1_55_0"
+  dependencies="libantlr3c-3.4 $DEPS_BOOST"
+  boost_path="$root/$DEPS_BOOST"
 else
   dependencies="libantlr3c-3.4"
   boost_path="$BOOST_ROOT"
