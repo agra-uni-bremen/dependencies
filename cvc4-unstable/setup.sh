@@ -13,7 +13,7 @@ package=cvc4
 version=unstable
 source="latest-unstable.tar.gz"
 build_dir=$build/$package-$version
-url="http://cvc4.cs.nyu.edu/builds/src/unstable/$source"
+url="http://cvc4.cs.stanford.edu/downloads/builds/src/unstable/$source"
 
 unpack() {
   cd $cache &&
