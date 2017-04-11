@@ -44,5 +44,5 @@ build_install() {
   fi
   cd "$build_dir" &&
   export CMAKE_PREFIX_PATH="$root/cryptominisat-git:$root/minisat-git" &&
-  cmake_build_install .. -DENABLE_PYTHON_INTERFACE=off
+  cmake_build_install .. -DENABLE_PYTHON_INTERFACE=off -DONLY_SIMPLE=on
 }
