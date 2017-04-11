@@ -1,0 +1,9 @@
+#define BTOR_CC "@CMAKE_CXX_COMPILER_ID@"
+#define BTOR_CXX "@CMAKE_CXX_COMPILER@"
+#define BTOR_CFLAGS "@CMAKE_C_FLAGS@"
+#define BTOR_OS "@OS@"
+#define BTOR_COMPILED "@COMPILED_TIMESTAMP@"
+#define BTOR_RELEASED "Wed Mar  8 14:20:04 CET 2017"
+#define BTOR_VERSION "@Bollector_VERSION@"
+#define BTOR_ID "a5b1ac38730acbf21d02b73fbafa81ffb5a326bd"
+
