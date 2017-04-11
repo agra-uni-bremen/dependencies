@@ -1,6 +1,6 @@
---- src/boolector.c	2016-12-17 03:47:54.000000000 +0100
-+++ src/boolector.patch.c	2017-01-20 22:45:29.388043138 +0100
-@@ -1976,11 +1976,21 @@
+--- src/boolector.c	2017-03-08 14:20:04.000000000 +0100
++++ src/boolector.patch.c	2017-04-11 17:03:12.758904719 +0200
+@@ -1999,11 +1999,21 @@
    BTOR_ABORT_IS_NOT_BV (e0);
    BTOR_ABORT_IS_NOT_BV (e1);
    len = btor_get_exp_width (btor, e0);
@@ -23,10 +23,10 @@
 +{
    res = btor_sll_exp (btor, e0, e1);
 +}
-   inc_exp_ext_ref_counter (btor, res);
+   btor_inc_exp_ext_ref_counter (btor, res);
    BTOR_TRAPI_RETURN_NODE (res);
  #ifndef NDEBUG
-@@ -2008,11 +2018,22 @@
+@@ -2031,11 +2041,22 @@
    BTOR_ABORT_IS_NOT_BV (e0);
    BTOR_ABORT_IS_NOT_BV (e1);
    len = btor_get_exp_width (btor, e0);
@@ -50,10 +50,10 @@
 +  {
    res = btor_srl_exp (btor, e0, e1);
 +  }
-   inc_exp_ext_ref_counter (btor, res);
+   btor_inc_exp_ext_ref_counter (btor, res);
    BTOR_TRAPI_RETURN_NODE (res);
  #ifndef NDEBUG
-@@ -2040,11 +2061,22 @@
+@@ -2063,11 +2084,22 @@
    BTOR_ABORT_IS_NOT_BV (e0);
    BTOR_ABORT_IS_NOT_BV (e1);
    len = btor_get_exp_width (btor, e0);
@@ -77,6 +77,6 @@
 +  {
    res = btor_sra_exp (btor, e0, e1);
 +  }
-   inc_exp_ext_ref_counter (btor, res);
+   btor_inc_exp_ext_ref_counter (btor, res);
    BTOR_TRAPI_RETURN_NODE (res);
  #ifndef NDEBUG
