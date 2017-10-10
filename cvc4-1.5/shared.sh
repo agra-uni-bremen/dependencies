@@ -12,7 +12,7 @@ fi
 package=cvc4
 source="$package-$version.tar.gz"
 build_dir=$build/$package-$version
-url="http://cvc4.cs.nyu.edu/builds/src/$source"
+url="http://cvc4.cs.stanford.edu/downloads/builds/src/$source"
 
 if [ -z "$BOOST_ROOT" ]; then
   dependencies="libantlr3c-3.4 $DEPS_BOOST"
@@ -26,8 +26,7 @@ unpack() {
   cd $cache &&
   tar -xf $source &&
   mv -f $package-$version $build_dir
-  cd $build_dir &&
-  patch -p1 < $package_dir/0001-*.patch
+  cd $build_dir
 }
 
 build_install() {
