@@ -25,10 +25,9 @@ unpack() {
 }
 
 if [ -z "$BOOST_ROOT" ]; then
-  dependencies="libantlr3c-3.4 $DEPS_BOOST"
+  dependencies="$DEPS_BOOST"
   boost_path="$root/$DEPS_BOOST"
 else
-  dependencies="libantlr3c-3.4"
   boost_path="$BOOST_ROOT"
 fi
 
@@ -39,9 +38,11 @@ build_install() {
   fi
 
   cd "$build_dir" &&
+  # build libantlr3c with provided script
+  contrib/get-antlr-3.4
   # build CVC4 with --bsd to allow usage under the terms of
   # the modified BSD license.
-  ./configure --prefix="$target" --bsd --with-antlr-dir=$root/libantlr3c-3.4 --with-boost=$boost_path &&
+  ./configure --prefix="$target" --bsd --with-antlr-dir=$build_dir/antlr-3.4 --with-boost=$boost_path ANTLR=$build_dir/antlr-3.4/bin/antlr3 &&
   make -j $num_threads &&
   make install &&
   cp -f "$package_dir/CVC4Config.cmake" "$target/CVC4Config.cmake"
