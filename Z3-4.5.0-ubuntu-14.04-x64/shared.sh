@@ -1,10 +1,10 @@
 #!/bin/sh
 
-if [ -z "$build" ] ; then 
+if [ -z "$build" ] ; then
   echo '$build is undefined'
   exit 1
 fi
-if [ -z "$package_dir" ] ; then 
+if [ -z "$package_dir" ] ; then
   echo '$package_dir is undefined'
   exit 1
 fi
@@ -28,7 +28,7 @@ pre_build() {
 }
 
 build_install() {
-  if [ -z "$target" ] ; then 
+  if [ -z "$target" ] ; then
     echo '$target is undefined'
     exit 1
   fi
