@@ -39,7 +39,7 @@ build_install() {
     exit 1
   fi
   cd "$build_dir" &&
-  python scripts/mk_make.py --staticlib --prefix="$target" &&
+  ./configure --staticlib --prefix="$target" &&
   cd build &&
   make -j $num_threads &&
   make install &&
