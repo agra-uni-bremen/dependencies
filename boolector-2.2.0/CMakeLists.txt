@@ -89,7 +89,11 @@ add_library(Boolector_libboolector
   ${STATIC_OR_SHARED}
   ${libboolector_SRC}
 )
-target_link_libraries(Boolector_libboolector ${Lingeling_LIBRARIES} ${MiniSat_LIBRARIES} m) 
+if (APPLE)
+   target_link_libraries(Boolector_libboolector ${Lingeling_LIBRARIES} ${MiniSat_LIBRARIES} m stdc++) 
+else()
+   target_link_libraries(Boolector_libboolector ${Lingeling_LIBRARIES} ${MiniSat_LIBRARIES} m) 
+endif()
 set_target_properties(Boolector_libboolector PROPERTIES OUTPUT_NAME boolector)
 
 add_executable(Boolector_boolector
