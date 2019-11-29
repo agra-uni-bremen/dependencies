@@ -30,8 +30,7 @@ unpack() {
 }
 
 pre_build() {
-  cd $build_dir &&
-  install_cmake_files $cmake_files_dir
+  true
 }
 
 build_install() {
@@ -40,12 +39,13 @@ build_install() {
     exit 1
   fi
   cd $build_dir &&
+  touch * &&
   mkdir -p build &&
   cd build &&
-  ../configure &&
-  cp config.h ../util/
-  cmake .. -DCMAKE_INSTALL_PREFIX=$target &&
-  make -j$num_threads install
+  ../configure --enable-obj --enable-dddmp --prefix=$target &&
+  make -j$num_threads install &&
+  install_cmake_files $cmake_files_dir &&
+  cp CUDDConfig.cmake "$target"
 }
 
 # vim: ts=2 sw=2 et
