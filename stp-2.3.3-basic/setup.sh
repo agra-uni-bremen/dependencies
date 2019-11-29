@@ -10,7 +10,7 @@ if [ -z "$package_dir" ] ; then
 fi
 
 package=stp
-version=2.3.1
+version=2.3.3
 source=nosourcefile
 build_dir=$build/$package-$version
 url=https://github.com/stp/stp.git
